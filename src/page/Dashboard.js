@@ -5,10 +5,12 @@ import {
   Button,
   CircularProgress,
   FormControl,
+  IconButton,
   LinearProgress,
   MenuItem,
   Select
 } from "@material-ui/core";
+import NotificationsOutlinedIcon from "@material-ui/icons/NotificationsOutlined";
 
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -109,6 +111,15 @@ export default function Dashboard(props) {
     return diff;
   };
 
+  const drawer = (e) => {
+    e.preventDefault();
+    console.log("open drawer");
+  };
+  const goToNotifications = (e) => {
+    e.preventDefault();
+    history.push("/notifications");
+  };
+
   return (
     <div>
       <div
@@ -137,18 +148,12 @@ export default function Dashboard(props) {
               }}
             >
               <div style={{ float: "left" }}>
-                {localStorage.getItem("tokenTwetchAuth") ? (
-                  <Link to={`/u/${localStorage.id}`}>
-                    <Avatar
-                      src={localStorage.getItem("icon")}
-                      alt={`${localStorage.getItem("name")}'s avatar`}
-                    />
-                  </Link>
-                ) : (
-                  <Link style={{ textDecoration: "none" }} to="/auth">
-                    <Button color="primary">Log In</Button>
-                  </Link>
-                )}
+                <IconButton onClick={drawer}>
+                  <Avatar
+                    src={localStorage.getItem("icon")}
+                    alt={`${localStorage.getItem("name")}'s avatar`}
+                  />
+                </IconButton>
               </div>
               <div style={{ alignContent: "center" }}>
                 <FormControl>
@@ -171,7 +176,17 @@ export default function Dashboard(props) {
                   </Select>
                 </FormControl>
               </div>
-              <div style={{ float: "right" }}></div>
+              <div style={{ float: "right" }}>
+                {localStorage.getItem("tokenTwetchAuth") ? (
+                  <IconButton onClick={goToNotifications}>
+                    <NotificationsOutlinedIcon />
+                  </IconButton>
+                ) : (
+                  <Link style={{ textDecoration: "none" }} to="/auth">
+                    <Button color="primary">Log In</Button>
+                  </Link>
+                )}
+              </div>
             </div>
             <FormControl
               style={{

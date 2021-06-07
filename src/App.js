@@ -8,6 +8,7 @@ import Auth from "./page/Auth";
 import Compose from "./page/Compose";
 import Dashboard from "./page/Dashboard";
 import Profile from "./page/Profile";
+import Notifications from "./page/Notifications";
 import Detail from "./page/Detail";
 import Welcome from "./page/Welcome";
 import "./styles.css";
@@ -23,6 +24,7 @@ export default function App() {
         <Route exact path="/auth" component={Auth} />
         <Route exact path="/auth/callback" render={() => <AuthCallback />} />
         <Route exact path="/welcome" component={Welcome} />
+        <Route exact path="/notifications" component={Notifications} />
         <Route exact path="/" component={Dashboard} />
         <Route
           exact

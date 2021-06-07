@@ -1,8 +1,24 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Avatar, Button } from "@material-ui/core";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { Avatar, Button, IconButton } from "@material-ui/core";
+import NotificationsOutlinedIcon from "@material-ui/icons/NotificationsOutlined";
+
+import LeftPane from "../components/LeftPane";
+
+//Warning: Dashboard has a modified AppBar so changes here ne to be ported there
 
 export default function AppBar() {
+  const history = useHistory();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const drawer = (e) => {
+    e.preventDefault();
+    console.log("open drawer");
+    setMobileOpen(!mobileOpen);
+  };
+  const goToNotifications = (e) => {
+    e.preventDefault();
+    history.push("/notifications");
+  };
   return (
     <div
       style={{
@@ -15,18 +31,12 @@ export default function AppBar() {
       }}
     >
       <div style={{ float: "left" }}>
-        {localStorage.getItem("tokenTwetchAuth") ? (
-          <Link to={`/u/${localStorage.id}`}>
-            <Avatar
-              src={localStorage.getItem("icon")}
-              alt={`${localStorage.getItem("name")}'s avatar`}
-            />
-          </Link>
-        ) : (
-          <Link style={{ textDecoration: "none" }} to="/auth">
-            <Button color="primary">Log In</Button>
-          </Link>
-        )}
+        <IconButton onClick={drawer}>
+          <Avatar
+            src={localStorage.getItem("icon")}
+            alt={`${localStorage.getItem("name")}'s avatar`}
+          />
+        </IconButton>
       </div>
       <div style={{ alignContent: "center" }}>
         <Link
@@ -42,7 +52,18 @@ export default function AppBar() {
           ZeroSchool
         </Link>
       </div>
-      <div style={{ float: "right" }}></div>
+      <div style={{ float: "right" }}>
+        {localStorage.getItem("tokenTwetchAuth") ? (
+          <IconButton onClick={goToNotifications}>
+            <NotificationsOutlinedIcon />
+          </IconButton>
+        ) : (
+          <Link style={{ textDecoration: "none" }} to="/auth">
+            <Button color="primary">Log In</Button>
+          </Link>
+        )}
+      </div>
+      <LeftPane open={mobileOpen} />
     </div>
   );
 }
