@@ -56,17 +56,17 @@ export default function Home(props) {
     FetchPosts(filter, orderBy, offset).then((res) => {
       //console.log(res);
       setTotalCount(res.allPosts.totalCount);
-      console.log("total:", totalCount);
+      //console.log("total:", totalCount);
       let data = res.allPosts.edges;
       setPostList(postList.concat(data));
-      console.log("postList:", postList.length);
+      //console.log("postList:", postList.length);
       setOffset(offset + 30);
       if (postList.length > totalCount) {
-        console.log("here");
+        //console.log("here");
         setHasMore(false);
       }
     });
-    console.log("hasMore:", hasMore);
+    //console.log("hasMore:", hasMore);
   };
 
   const handleChangeOrder = (event) => {

@@ -1,48 +1,265 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Avatar, Button } from "@material-ui/core";
+import {
+  Avatar,
+  Button,
+  Drawer,
+  Hidden,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Typography
+} from "@material-ui/core";
+import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
+import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
+import EmojiObjectsOutlinedIcon from "@material-ui/icons/EmojiObjectsOutlined";
+import StarsOutlinedIcon from "@material-ui/icons/StarsOutlined";
+import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
 
-export default function AppBar() {
-  return (
-    <div
-      style={{
-        position: "sticky",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "16px",
-        borderBottom: "1px solid #F2F2F2"
-      }}
-    >
-      <div style={{ float: "left" }}>
-        {localStorage.getItem("tokenTwetchAuth") ? (
-          <Link to={`/u/${localStorage.id}`}>
-            <Avatar
-              src={localStorage.getItem("icon")}
-              alt={`${localStorage.getItem("name")}'s avatar`}
-            />
-          </Link>
-        ) : (
-          <Link style={{ textDecoration: "none" }} to="/auth">
-            <Button color="primary">Log In</Button>
-          </Link>
-        )}
-      </div>
-      <div style={{ alignContent: "center" }}>
-        <Link
+export default function AppBar(props) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const { window } = props;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
+
+  const handleDrawerToggle = (e) => {
+    e.stopPropagation();
+    setMobileOpen(!mobileOpen);
+  };
+
+  const drawer = (
+    <div>
+      <div
+        style={{
+          width: "90vw",
+          display: "flex",
+          overflow: "hidden",
+          minWidth: "300px",
+          flexDirection: "column"
+        }}
+      >
+        <div
           style={{
-            color: "#2F2F2F",
-            margin: 0,
-            fontSize: "16px",
-            fontWeight: "bold",
-            textDecoration: "none"
+            height: "54px",
+            display: "flex",
+            alignItems: "center",
+            paddingLeft: "20px",
+            borderBottom: "1px solid #F2F2F2",
+            paddingRight: "16px",
+            justifyContent: "space-between"
           }}
-          to="/"
         >
-          ZeroSchool
-        </Link>
+          <Typography
+            style={{
+              height: "54px",
+              display: "flex",
+              alignItems: "center",
+              paddingLeft: "20px",
+              borderBottom: "1px solid #F2F2F2",
+              paddingRight: "16px",
+              justifyContent: "space-between"
+            }}
+            variant="body1"
+          >
+            Menu
+          </Typography>
+          <Typography
+            style={{
+              color: "rgba(0, 0, 0, .5)",
+              cursor: "pointer",
+              fontSize: "14px"
+            }}
+            variant="body1"
+            onClick={handleDrawerToggle}
+          >
+            Close
+          </Typography>
+        </div>
+        <div
+          style={{
+            overflowY: "auto",
+            paddingTop: "16px"
+          }}
+        >
+          <div
+            style={{
+              paddingLeft: "24px"
+            }}
+          >
+            {localStorage.tokenTwetchAuth ? (
+              <Link
+                to={`/u/${localStorage.id}`}
+                style={{ textDecoration: "None" }}
+              >
+                <div style={{ cursor: "pointer" }}>
+                  <div style={{ display: "flex", marginBottom: "15px" }}>
+                    <Avatar
+                      style={{
+                        cursor: "pointer",
+                        background: "rgba(0, 0, 0, .5)",
+                        transition: "height .2s ease, width .2s ease",
+                        borderRadius: "100%",
+                        width: "46px",
+                        height: "46px",
+                        display: "inline-block",
+                        marginRight: "16px"
+                      }}
+                      src={localStorage.getItem("icon")}
+                      alt={`${localStorage.getItem("name")}'s avatar`}
+                    />
+                    <div>
+                      <Typography
+                        style={{
+                          color: "#000000",
+                          fontWeight: "bold"
+                        }}
+                        variant="body1"
+                      >
+                        {localStorage.name}
+                      </Typography>
+                      <Typography style={{ color: "#828282" }} variant="body1">
+                        @{localStorage.id}
+                      </Typography>
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      color: "#000000",
+                      display: "flex"
+                    }}
+                  ></div>
+                </div>
+              </Link>
+            ) : (
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  component={Link}
+                  to="/auth"
+                >
+                  Log In
+                </Button>
+              </div>
+            )}
+          </div>
+          <div style={{ marginTop: "15px" }}></div>
+          <div
+            style={{
+              paddingLeft: "24px"
+            }}
+          >
+            <div>
+              <List style={{ marginLeft: "-16px" }}>
+                <ListItem button component={Link} to="/">
+                  <ListItemIcon>
+                    <HomeOutlinedIcon />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <div style={{ display: "flex" }}>Home</div>
+                  </ListItemText>
+                </ListItem>
+                <ListItem button component={Link} to="/intents">
+                  <ListItemIcon>
+                    <HelpOutlineOutlinedIcon />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <div style={{ display: "flex" }}>Questions</div>
+                  </ListItemText>
+                </ListItem>
+                <ListItem button component={Link} to="/methods">
+                  <ListItemIcon>
+                    <EmojiObjectsOutlinedIcon />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <div style={{ display: "flex" }}>Ideas</div>
+                  </ListItemText>
+                </ListItem>
+                <ListItem button component={Link} to="/projects">
+                  <ListItemIcon>
+                    <StarsOutlinedIcon />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <div style={{ display: "flex" }}>Projects</div>
+                  </ListItemText>
+                </ListItem>
+              </List>
+            </div>
+          </div>
+        </div>
       </div>
-      <div style={{ float: "right" }}></div>
+    </div>
+  );
+
+  return (
+    <div>
+      <div
+        style={{
+          position: "sticky",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "16px",
+          borderBottom: "1px solid #F2F2F2"
+        }}
+      >
+        <div style={{ float: "left" }}>
+          <IconButton onClick={handleDrawerToggle}>
+            {localStorage.getItem("tokenTwetchAuth") ? (
+              <Avatar
+                src={localStorage.getItem("icon")}
+                alt={`${localStorage.getItem("name")}'s avatar`}
+              />
+            ) : (
+              <MenuOutlinedIcon />
+            )}
+          </IconButton>
+        </div>
+        <div style={{ alignContent: "center" }}>
+          <Link
+            style={{
+              color: "#2F2F2F",
+              margin: 0,
+              fontSize: "16px",
+              fontWeight: "bold",
+              textDecoration: "none"
+            }}
+            to="/"
+          >
+            ZeroSchool
+          </Link>
+        </div>
+        <div style={{ float: "right" }}>
+          {!localStorage.tokenTwetchAuth && (
+            <Link style={{ textDecoration: "none" }} to="/auth">
+              <Button color="primary">Log In</Button>
+            </Link>
+          )}
+        </div>
+      </div>
+      <nav style={{}}>
+        <Hidden smUp>
+          <Drawer
+            style={{
+              position: "fixed",
+              zIndex: 1300,
+              inset: "0px"
+            }}
+            anchor="left"
+            container={container}
+            ModalProps={{
+              keepMounted: true // Better open performance on mobile.
+            }}
+            onClose={handleDrawerToggle}
+            open={mobileOpen}
+            variant="temporary"
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+      </nav>
     </div>
   );
 }

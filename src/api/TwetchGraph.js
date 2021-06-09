@@ -92,14 +92,9 @@ export const userData = `{
   `;
 
 export function FetchPosts(filter, order, offset) {
-  let filterParam = "";
-  if (filter === "") {
-    filterParam = 'includes: "$zeroschool"';
-  } else {
-    filterParam = `includesInsensitive: "${filter}"`;
-  }
+  //console.log(filter);
   return twquery(`{
-    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {bContent: {${filterParam}}}) {
+    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {bContent: {includes: "${filter}"}}) {
       totalCount
       edges {
         node {

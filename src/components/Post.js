@@ -178,7 +178,9 @@ export default function Post(props) {
             to={`/u/${postData.userId}`}
             onClick={(e) => e.stopPropagation()}
           >
-            <Avatar src={postData.userByUserId.icon} />
+            <Avatar
+              src={postData.userByUserId.icon ? postData.userByUserId.icon : ""}
+            />
           </Link>
           <div
             style={{
