@@ -7,10 +7,12 @@ import { twquery } from "../api/TwetchGraph";
 
 export default function Auth() {
   const history = useHistory();
+  const host = window.location.host;
+  console.log(host);
 
   const TwetchLogin = (e) => {
     // config
-    let redirectUrl = "https://ldh7p.csb.app/auth/callback";
+    let redirectUrl = `https://${host}/auth/callback`;
     let appName = "ZeroSchool";
     e.preventDefault();
     window.location.href = `https://twetch.app/auth/authorize?appName=${appName}&redirectUrl=${redirectUrl}`;
