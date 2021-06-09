@@ -5,6 +5,7 @@ import {
   Button,
   CircularProgress,
   FormControl,
+  Hidden,
   MenuItem,
   Select
 } from "@material-ui/core";
@@ -12,6 +13,9 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import { getBoosts } from "../api/boost";
 import { FetchUserData, FetchUserPosts } from "../api/TwetchGraph";
+import StickyButton from "../components/StickyButton";
+import LeftPane from "../components/LeftPane";
+import RightPane from "../components/RightPane";
 import Post from "../components/Post";
 import AppBar from "../components/AppBar";
 
@@ -43,7 +47,7 @@ export default function Profile(props) {
     FetchUserPosts(userId, orderBy, offset).then((res) => {
       setTotalCount(res.allPosts.totalCount);
       setPostList(postList.concat(res.allPosts.edges));
-      if (postList.length >= totalCount) {
+      if (postList.length > totalCount) {
         setHasMore(false);
       }
       setOffset(offset + 30);
@@ -84,12 +88,26 @@ export default function Profile(props) {
     return diff;
   };
 
+  const scrollTop = (e) => {
+    document.getElementById("scrollable").scrollTo(0, 0);
+  };
+
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center"
+      }}
+    >
+      <Hidden smDown>
+        <LeftPane />
+      </Hidden>
       <div
         style={{
-          display: "flex",
-          justifyContent: "center"
+          flex: 2,
+          width: "100%",
+          maxWidth: "600px"
         }}
       >
         <div></div>
@@ -101,14 +119,45 @@ export default function Profile(props) {
             maxWidth: "600px"
           }}
         >
-          <AppBar />
-
+          {" "}
+          <div style={{ cursor: "pointer" }} onClick={scrollTop}>
+            <Hidden smUp>
+              <AppBar />
+            </Hidden>
+            <Hidden xsDown>
+              <div
+                style={{
+                  height: "97px",
+                  position: "sticky",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "16px",
+                  borderBottom: "1px solid #F2F2F2"
+                }}
+              >
+                <div
+                  style={{
+                    color: "#2F2F2F",
+                    margin: 0,
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    textDecoration: "none",
+                    cursor: "pointer"
+                  }}
+                >
+                  {userData.name && `${userData.name}'s`} Profile
+                </div>
+                <div></div>
+              </div>
+            </Hidden>
+          </div>
           {!loading ? (
             <div
               id="scrollable"
               style={{
                 position: "relative",
-                height: "calc(100vh - 72px)",
+                height: "calc(100vh - 95px)",
                 overflowY: "scroll"
               }}
             >
@@ -179,13 +228,13 @@ export default function Profile(props) {
                   width: "100%",
                   background: "#fafafa",
                   borderBottom: "1px solid #F2F2F2",
-                  padding: "12px",
                   top: "0px",
                   position: "sticky",
                   zIndex: 1002
                 }}
               >
                 <Select
+                  style={{ marginLeft: "16px" }}
                   variant="standard"
                   disableUnderline
                   value={OrderToIndex[orderBy]}
@@ -243,7 +292,21 @@ export default function Profile(props) {
           )}
         </div>
       </div>
-      <div></div>
+      <Hidden mdDown>
+        <RightPane />
+      </Hidden>
+      <div
+        style={{
+          width: "100%",
+          bottom: 0,
+          zIndex: 1002,
+          position: "fixed"
+        }}
+      >
+        <Hidden smUp>
+          <StickyButton />
+        </Hidden>
+      </div>
     </div>
   );
 }

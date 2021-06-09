@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
-  Avatar,
   Button,
   CircularProgress,
   FormControl,
-  LinearProgress,
+  Hidden,
   MenuItem,
   Select
 } from "@material-ui/core";
@@ -14,24 +13,12 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import { getBoosts } from "../api/boost";
 import { FetchPosts } from "../api/TwetchGraph";
+import StickyButton from "../components/StickyButton";
 import Composer from "../components/Composer";
+import AppBar from "../components/AppBar";
+import LeftPane from "../components/LeftPane";
+import RightPane from "../components/RightPane";
 import Post from "../components/Post";
-
-const index2Hash = {
-  0: "",
-  10: "#questions",
-  20: "#ideas",
-  30: "#projects",
-  40: "#21e8"
-};
-
-const hash2Index = {
-  "": 0,
-  "#questions": 10,
-  "#ideas": 20,
-  "#projects": 30,
-  "#21e8": 40
-};
 
 const indexToOrder = {
   0: "CREATED_AT_DESC",
@@ -45,10 +32,11 @@ const OrderToIndex = {
   RANKING_DESC: 20
 };
 
-export default function Dashboard(props) {
+export default function Projects(props) {
+  const filter = "#projects";
+  //console.log(filter);
   const [orderBy, setOrderBy] = useState(indexToOrder[0]);
-  const hash = props.location.hash;
-  const [filter, setFilter] = useState(hash2Index[hash]);
+  //const [filter, setFilter] = useState(props.filter);
   const [postList, setPostList] = useState([]);
   const [offset, setOffset] = useState(0);
   const [boosts, setBoosts] = useState([]);
@@ -65,12 +53,12 @@ export default function Dashboard(props) {
   }, [orderBy, filter]);
 
   const fetchMore = () => {
-    FetchPosts(index2Hash[filter], orderBy, offset).then((res) => {
+    FetchPosts(filter, orderBy, offset).then((res) => {
       //console.log(res);
       setTotalCount(res.allPosts.totalCount);
       let data = res.allPosts.edges;
       setPostList(postList.concat(data));
-      if (postList.length >= totalCount) {
+      if (postList.length > totalCount) {
         setHasMore(false);
       }
 
@@ -85,20 +73,6 @@ export default function Dashboard(props) {
     setOrderBy(indexToOrder[event.target.value]);
     setOffset(0);
   };
-  const handleChangeFilter = (event) => {
-    setPostList([]);
-    setTotalCount(0);
-    setHasMore(true);
-    let index = event.target.value;
-    if (index === 0) {
-      history.push("/");
-    } else {
-      window.location.hash = index2Hash[index];
-    }
-    setFilter(index);
-    setOrderBy(indexToOrder[0]);
-    setOffset(0);
-  };
 
   const getDiff = (tx) => {
     let diff = 0;
@@ -109,12 +83,25 @@ export default function Dashboard(props) {
     return diff;
   };
 
+  const scrollTop = (e) => {
+    document.getElementById("scrollable").scrollTo(0, 0);
+  };
+
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center"
+      }}
+    >
+      <Hidden smDown>
+        <LeftPane />
+      </Hidden>
       <div
         style={{
-          display: "flex",
-          justifyContent: "center"
+          flex: 2,
+          width: "100%",
+          maxWidth: "600px"
         }}
       >
         <div></div>
@@ -126,53 +113,35 @@ export default function Dashboard(props) {
             maxWidth: "600px"
           }}
         >
-          <div>
-            <div
-              style={{
-                position: "sticky",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "16px"
-              }}
-            >
-              <div style={{ float: "left" }}>
-                {localStorage.getItem("tokenTwetchAuth") ? (
-                  <Link to={`/u/${localStorage.id}`}>
-                    <Avatar
-                      src={localStorage.getItem("icon")}
-                      alt={`${localStorage.getItem("name")}'s avatar`}
-                    />
-                  </Link>
-                ) : (
-                  <Link style={{ textDecoration: "none" }} to="/auth">
-                    <Button color="primary">Log In</Button>
-                  </Link>
-                )}
+          <div style={{ cursor: "pointer" }} onClick={scrollTop}>
+            <Hidden smUp>
+              <AppBar />
+            </Hidden>
+            <Hidden xsDown>
+              <div
+                style={{
+                  height: "97px",
+                  position: "sticky",
+                  display: "flex",
+                  justifyContent: "center",
+                  padding: "16px",
+                  borderBottom: "1px solid #F2F2F2"
+                }}
+              >
+                <Button
+                  style={{
+                    color: "#2F2F2F",
+                    margin: 0,
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    textDecoration: "none"
+                  }}
+                  onClick={() => history.push("/projects")}
+                >
+                  Projects
+                </Button>
               </div>
-              <div style={{ alignContent: "center" }}>
-                <FormControl>
-                  <Select
-                    style={{
-                      color: "#2F2F2F",
-                      margin: 0,
-                      fontSize: "16px",
-                      fontWeight: "bold"
-                    }}
-                    disableUnderline
-                    value={filter}
-                    onChange={handleChangeFilter}
-                  >
-                    <MenuItem value={0}>ZeroSchool</MenuItem>
-                    <MenuItem value={10}>#Questions</MenuItem>
-                    <MenuItem value={20}>#Ideas</MenuItem>
-                    <MenuItem value={30}>#Projects</MenuItem>
-                    <MenuItem value={40}>#21e8</MenuItem>
-                  </Select>
-                </FormControl>
-              </div>
-              <div style={{ float: "right" }}></div>
-            </div>
+            </Hidden>
             <FormControl
               style={{
                 width: "100%",
@@ -198,11 +167,13 @@ export default function Dashboard(props) {
               id="scrollable"
               style={{
                 position: "relative",
-                height: "calc(100vh - 106px)",
-                overflowY: "scroll"
+                height: "calc(100vh - 130px)",
+                overflowY: "auto"
               }}
             >
-              <Composer />
+              <Hidden xsDown>
+                <Composer />
+              </Hidden>
               <InfiniteScroll
                 dataLength={postList.length}
                 next={fetchMore}
@@ -251,7 +222,21 @@ export default function Dashboard(props) {
             </div>
           )}
         </div>
-        <div></div>
+      </div>
+      <Hidden mdDown>
+        <RightPane />
+      </Hidden>
+      <div
+        style={{
+          width: "100%",
+          bottom: 0,
+          zIndex: 1002,
+          position: "fixed"
+        }}
+      >
+        <Hidden smUp>
+          <StickyButton />
+        </Hidden>
       </div>
     </div>
   );

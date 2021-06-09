@@ -6,7 +6,10 @@ import { getABI } from "./api/TwetchActions";
 import AuthCallback from "./page/AuthCallBack";
 import Auth from "./page/Auth";
 import Compose from "./page/Compose";
-import Dashboard from "./page/Dashboard";
+import Home from "./page/Home";
+import Questions from "./page/Questions";
+import Ideas from "./page/Ideas";
+import Projects from "./page/Projects";
 import Profile from "./page/Profile";
 import Detail from "./page/Detail";
 import Welcome from "./page/Welcome";
@@ -23,7 +26,10 @@ export default function App() {
         <Route exact path="/auth" component={Auth} />
         <Route exact path="/auth/callback" render={() => <AuthCallback />} />
         <Route exact path="/welcome" component={Welcome} />
-        <Route exact path="/" component={Dashboard} />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/intents" component={Questions} />
+        <Route exact path="/methods" component={Ideas} />
+        <Route exact path="/projects" component={Projects} />
         <Route
           exact
           path="/compose/:id"

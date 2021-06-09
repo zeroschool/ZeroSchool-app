@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { CircularProgress } from "@material-ui/core";
 
 import { userData } from "../api/TwetchGraph";
-import Dashboard from "./Dashboard";
+import Home from "./Home";
 
 const axios = require("axios");
 
