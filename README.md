@@ -1,2 +1,2 @@
 # ZeroSchool-app
-Created with CodeSandbox
+Ceci n'est pas une école.
