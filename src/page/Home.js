@@ -61,7 +61,7 @@ export default function Home(props) {
       setPostList(postList.concat(data));
       //console.log("postList:", postList.length);
       setOffset(offset + 30);
-      if (postList.length > totalCount) {
+      if (totalCount !== 0 && postList.length >= totalCount) {
         //console.log("here");
         setHasMore(false);
       }
@@ -169,7 +169,7 @@ export default function Home(props) {
               id="scrollable"
               style={{
                 position: "relative",
-                height: "calc(100% - 130px)",
+                height: "calc(100vh - 117px)",
                 overflowY: "auto"
               }}
             >

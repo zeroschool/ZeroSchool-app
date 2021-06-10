@@ -47,7 +47,7 @@ export default function Profile(props) {
     FetchUserPosts(userId, orderBy, offset).then((res) => {
       setTotalCount(res.allPosts.totalCount);
       setPostList(postList.concat(res.allPosts.edges));
-      if (postList.length > totalCount) {
+      if (totalCount !== 0 && postList.length >= totalCount) {
         setHasMore(false);
       }
       setOffset(offset + 30);
@@ -157,7 +157,7 @@ export default function Profile(props) {
               id="scrollable"
               style={{
                 position: "relative",
-                height: "calc(100% - 95px)",
+                height: "calc(100vh - 84px)",
                 overflowY: "scroll"
               }}
             >

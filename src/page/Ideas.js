@@ -58,7 +58,7 @@ export default function Ideas(props) {
       setTotalCount(res.allPosts.totalCount);
       let data = res.allPosts.edges;
       setPostList(postList.concat(data));
-      if (postList.length > totalCount) {
+      if (totalCount !== 0 && postList.length >= totalCount) {
         setHasMore(false);
       }
 
@@ -167,7 +167,7 @@ export default function Ideas(props) {
               id="scrollable"
               style={{
                 position: "relative",
-                height: "calc(100% - 130px)",
+                height: "calc(100vh - 117px)",
                 overflowY: "auto"
               }}
             >
