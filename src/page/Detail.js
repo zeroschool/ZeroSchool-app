@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import {
   CircularProgress,
   FormControl,
+  Hidden,
+  IconButton,
   MenuItem,
   Select
 } from "@material-ui/core";
-
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+import { use100vh } from "react-div-100vh";
 import { getBoosts } from "../api/boost";
 import { FetchPostDetail, FetchPostReplies } from "../api/TwetchGraph";
+import LeftPane from "../components/LeftPane";
+import RightPane from "../components/RightPane";
 import AppBar from "../components/AppBar";
 import Post from "../components/Post";
 
@@ -31,6 +37,9 @@ export default function Detail(props) {
   const [parents, setParents] = useState([]);
   const [boosts, setBoosts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
+  const height = use100vh();
+  const containerHeight = height ? height : "100vh";
 
   useEffect(() => {
     setLoading(true);
@@ -67,7 +76,9 @@ export default function Detail(props) {
           justifyContent: "center"
         }}
       >
-        <div></div>
+        <Hidden smDown>
+          <LeftPane />
+        </Hidden>
         <div
           className="borders"
           style={{
@@ -76,12 +87,46 @@ export default function Detail(props) {
             maxWidth: "600px"
           }}
         >
-          <AppBar />
+          <div style={{ cursor: "pointer" }}>
+            <Hidden smUp>
+              <AppBar />
+            </Hidden>
+            <Hidden xsDown>
+              <div
+                style={{
+                  height: "81px",
+                  position: "sticky",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  padding: "16px",
+                  borderBottom: "1px solid #F2F2F2"
+                }}
+              >
+                <IconButton onClick={() => history.goBack()}>
+                  <KeyboardBackspaceIcon color="primary" />
+                </IconButton>
+                <div
+                  style={{
+                    color: "#2F2F2F",
+                    margin: 0,
+                    fontSize: "22px",
+                    fontWeight: "bold",
+                    textDecoration: "none",
+                    cursor: "pointer"
+                  }}
+                >
+                  Twetch Detail
+                </div>
+                <div></div>
+              </div>
+            </Hidden>
+          </div>
           <div
             style={{
               position: "relative",
-              height: "calc(100vh - 72px)",
-              overflowY: "scroll"
+              height: `calc(${containerHeight}px - 84px)`,
+              overflowY: "auto"
             }}
           >
             {parents.map((parent) => (
@@ -139,6 +184,9 @@ export default function Detail(props) {
             )}
           </div>
         </div>
+        <Hidden mdDown>
+          <RightPane />
+        </Hidden>
       </div>
       <div></div>
     </div>

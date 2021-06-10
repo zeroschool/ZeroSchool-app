@@ -10,7 +10,7 @@ import {
   Select
 } from "@material-ui/core";
 import InfiniteScroll from "react-infinite-scroll-component";
-
+import { use100vh } from "react-div-100vh";
 import { getBoosts } from "../api/boost";
 import { FetchUserData, FetchUserPosts } from "../api/TwetchGraph";
 import StickyButton from "../components/StickyButton";
@@ -42,12 +42,14 @@ export default function Profile(props) {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const history = useHistory();
+  const height = use100vh();
+  const containerHeight = height ? height : "100vh";
 
   const fetchMore = async () => {
     FetchUserPosts(userId, orderBy, offset).then((res) => {
       setTotalCount(res.allPosts.totalCount);
       setPostList(postList.concat(res.allPosts.edges));
-      if (postList.length > totalCount) {
+      if (totalCount !== 0 && postList.length >= totalCount) {
         setHasMore(false);
       }
       setOffset(offset + 30);
@@ -127,7 +129,7 @@ export default function Profile(props) {
             <Hidden xsDown>
               <div
                 style={{
-                  height: "97px",
+                  height: "81px",
                   position: "sticky",
                   display: "flex",
                   justifyContent: "center",
@@ -140,7 +142,7 @@ export default function Profile(props) {
                   style={{
                     color: "#2F2F2F",
                     margin: 0,
-                    fontSize: "16px",
+                    fontSize: "22px",
                     fontWeight: "bold",
                     textDecoration: "none",
                     cursor: "pointer"
@@ -157,7 +159,7 @@ export default function Profile(props) {
               id="scrollable"
               style={{
                 position: "relative",
-                height: "calc(100vh - 95px)",
+                height: `calc(${containerHeight}px - 84px)`,
                 overflowY: "scroll"
               }}
             >
@@ -187,7 +189,7 @@ export default function Profile(props) {
               </div>
               <div
                 style={{
-                  width: "calc(100% - 58px)",
+                  width: `calc(${containerHeight} - 58px)`,
                   display: "inline-block",
                   verticalAlign: "top",
                   paddingLeft: "16px"
