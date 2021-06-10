@@ -69,7 +69,7 @@ export default function Compose(props) {
             <Hidden xsDown>
               <div
                 style={{
-                  height: "97px",
+                  height: "81px",
                   position: "sticky",
                   display: "flex",
                   justifyContent: "space-between",
@@ -85,7 +85,7 @@ export default function Compose(props) {
                   style={{
                     color: "#2F2F2F",
                     margin: 0,
-                    fontSize: "16px",
+                    fontSize: "22px",
                     fontWeight: "bold",
                     textDecoration: "none",
                     cursor: "pointer"

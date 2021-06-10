@@ -120,7 +120,7 @@ export default function Questions(props) {
             <Hidden xsDown>
               <div
                 style={{
-                  height: "97px",
+                  height: "81px",
                   position: "sticky",
                   display: "flex",
                   justifyContent: "center",
@@ -132,7 +132,7 @@ export default function Questions(props) {
                   style={{
                     color: "#2F2F2F",
                     margin: 0,
-                    fontSize: "16px",
+                    fontSize: "22px",
                     fontWeight: "bold",
                     textDecoration: "none"
                   }}
@@ -167,7 +167,7 @@ export default function Questions(props) {
               id="scrollable"
               style={{
                 position: "relative",
-                height: "calc(100vh - 117px)",
+                height: "calc(100vh - 114px)",
                 overflowY: "auto"
               }}
             >
