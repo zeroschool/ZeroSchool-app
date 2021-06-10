@@ -44,13 +44,13 @@ export default function LeftPane() {
               style={{
                 color: "#2F2F2F",
                 margin: 0,
-                fontSize: "16px",
+                fontSize: "22px",
                 fontWeight: "bold",
                 textDecoration: "none"
               }}
               to="/"
             >
-              ZeroSchool
+              Sapience
             </Link>
           </div>
           <div
@@ -77,7 +77,7 @@ export default function LeftPane() {
                         marginRight: "16px"
                       }}
                       src={localStorage.getItem("icon")}
-                      alt={`${localStorage.getItem("name")}'s avatar`}
+                      alt={`Avatar de ${localStorage.getItem("name")}`}
                     />
                     <div>
                       <Typography
@@ -110,7 +110,7 @@ export default function LeftPane() {
                   component={Link}
                   to="/auth"
                 >
-                  Log In
+                  Se connecter
                 </Button>
               </div>
             )}
@@ -128,7 +128,7 @@ export default function LeftPane() {
                     <HomeOutlinedIcon />
                   </ListItemIcon>
                   <ListItemText>
-                    <div style={{ display: "flex" }}>Home</div>
+                    <div style={{ display: "flex" }}>Accueil</div>
                   </ListItemText>
                 </ListItem>
                 <ListItem button component={Link} to="/intents">
@@ -144,7 +144,7 @@ export default function LeftPane() {
                     <EmojiObjectsOutlinedIcon />
                   </ListItemIcon>
                   <ListItemText>
-                    <div style={{ display: "flex" }}>Ideas</div>
+                    <div style={{ display: "flex" }}>Idées</div>
                   </ListItemText>
                 </ListItem>
                 <ListItem button component={Link} to="/projects">
@@ -152,7 +152,7 @@ export default function LeftPane() {
                     <StarsOutlinedIcon />
                   </ListItemIcon>
                   <ListItemText>
-                    <div style={{ display: "flex" }}>Projects</div>
+                    <div style={{ display: "flex" }}>Projets</div>
                   </ListItemText>
                 </ListItem>
               </List>
@@ -192,7 +192,7 @@ export default function LeftPane() {
                 </div>
               }
             >
-              Create Post
+              Publier
             </Button>
           </div>
         </div>

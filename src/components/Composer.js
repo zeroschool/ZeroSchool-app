@@ -9,7 +9,7 @@ import {
   TextField,
   Typography
 } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
+import { Alert } from "@material-ui/lab";
 import { Link } from "react-router-dom";
 
 import { BSVABI } from "../utils/BSVABI";
@@ -24,7 +24,7 @@ import {
 export default function Composer(props) {
   const replyTx = props.replyTx;
   const [placeholder, setPlaceholder] = useState(
-    "What do you *really* wanna learn?"
+    "Que voulez vous *vraiment* apprendre ?"
   );
   const [content, setContent] = useState("");
   const [open, setOpen] = useState(false);
@@ -46,7 +46,7 @@ export default function Composer(props) {
         }
       }`).then((res) =>
         setPlaceholder(
-          `Replying to ${res.allPosts.edges[0].node.userByUserId.name}`
+          `En réponse à ${res.allPosts.edges[0].node.userByUserId.name}`
         )
       );
     }
@@ -153,7 +153,7 @@ export default function Composer(props) {
                   disabled={!content || content.length > 256}
                   onClick={handleSubmit}
                 >
-                  Post
+                  Publier
                 </Button>
               </div>
             </Grid>
@@ -167,7 +167,7 @@ export default function Composer(props) {
           variant="filled"
           onClick={(e) => e.stopPropagation()}
         >
-          Transaction successful! <Link to={`/t/`}>view</Link>
+          Transaction réussie ! <Link to={`/t/`}>voir</Link>
         </Alert>
       </Snackbar>
     </div>

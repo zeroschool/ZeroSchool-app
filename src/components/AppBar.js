@@ -74,7 +74,7 @@ export default function AppBar(props) {
             variant="body1"
             onClick={handleDrawerToggle}
           >
-            Close
+            Fermer
           </Typography>
         </div>
         <div
@@ -107,7 +107,7 @@ export default function AppBar(props) {
                         marginRight: "16px"
                       }}
                       src={localStorage.getItem("icon")}
-                      alt={`${localStorage.getItem("name")}'s avatar`}
+                      alt={`Avatar de ${localStorage.getItem("name")}`}
                     />
                     <div>
                       <Typography
@@ -140,7 +140,7 @@ export default function AppBar(props) {
                   component={Link}
                   to="/auth"
                 >
-                  Log In
+                  Se connecter
                 </Button>
               </div>
             )}
@@ -158,7 +158,7 @@ export default function AppBar(props) {
                     <HomeOutlinedIcon />
                   </ListItemIcon>
                   <ListItemText>
-                    <div style={{ display: "flex" }}>Home</div>
+                    <div style={{ display: "flex" }}>Accueil</div>
                   </ListItemText>
                 </ListItem>
                 <ListItem button component={Link} to="/intents">
@@ -174,7 +174,7 @@ export default function AppBar(props) {
                     <EmojiObjectsOutlinedIcon />
                   </ListItemIcon>
                   <ListItemText>
-                    <div style={{ display: "flex" }}>Ideas</div>
+                    <div style={{ display: "flex" }}>Idées</div>
                   </ListItemText>
                 </ListItem>
                 <ListItem button component={Link} to="/projects">
@@ -182,7 +182,7 @@ export default function AppBar(props) {
                     <StarsOutlinedIcon />
                   </ListItemIcon>
                   <ListItemText>
-                    <div style={{ display: "flex" }}>Projects</div>
+                    <div style={{ display: "flex" }}>Projets</div>
                   </ListItemText>
                 </ListItem>
               </List>
@@ -210,7 +210,7 @@ export default function AppBar(props) {
             {localStorage.getItem("tokenTwetchAuth") ? (
               <Avatar
                 src={localStorage.getItem("icon")}
-                alt={`${localStorage.getItem("name")}'s avatar`}
+                alt={`Avatar de ${localStorage.getItem("name")}`}
               />
             ) : (
               <MenuOutlinedIcon />
@@ -222,19 +222,19 @@ export default function AppBar(props) {
             style={{
               color: "#2F2F2F",
               margin: 0,
-              fontSize: "16px",
+              fontSize: "22px",
               fontWeight: "bold",
               textDecoration: "none"
             }}
             to="/"
           >
-            ZeroSchool
+            Sapience
           </Link>
         </div>
         <div style={{ float: "right" }}>
           {!localStorage.tokenTwetchAuth && (
             <Link style={{ textDecoration: "none" }} to="/auth">
-              <Button color="primary">Log In</Button>
+              <Button color="primary">Se connecter</Button>
             </Link>
           )}
         </div>

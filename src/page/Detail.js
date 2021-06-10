@@ -116,7 +116,7 @@ export default function Detail(props) {
                     cursor: "pointer"
                   }}
                 >
-                  Twetch Detail
+                  Détail du post
                 </div>
                 <div></div>
               </div>
