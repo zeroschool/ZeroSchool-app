@@ -3,7 +3,8 @@ TODO:
 [x] HomePage
 [x] ProfilePage
 [x] DetailPage
-[x] Link to Auth page 
+[x] Link to Auth page
+[] Welcome page 
 
 
 #Actions
@@ -23,6 +24,7 @@ TODO:
 [x] Overflow
 [x] Fixed AppBar
 [x] Scroll
+[x] Theme
 [o] Shorter Timestamps => Won't Do
 [] Images
 [] Links
@@ -54,15 +56,14 @@ TODO:
   [] 21e8
   [] Boost
 => https://codesandbox.io/s/twetchpay-6m86f
-[] Welcome page 
-[] Profile page is the star product
 [] Buy orderby earlier and store proof in localStorage
 [?] 21e8 HashBoard
 
 #TODO before going online
 [?] TwetchPay Preview
-[] Drawer
-[] Sticky Post Button
+[x] Drawer
+[x] Sticky Post Button
+[] Welcome page
 [] Profile page tabs [posts, replies, likes]
 [] Detail Page Layout (link between parent/child)
 

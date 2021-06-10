@@ -8,7 +8,7 @@ import {
   MenuItem,
   Select
 } from "@material-ui/core";
-
+import { use100vh } from "react-div-100vh";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import { getBoosts } from "../api/boost";
@@ -44,6 +44,8 @@ export default function Home(props) {
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const height = use100vh();
+  const containerHeight = height ? height : "100vh";
 
   useEffect(() => {
     setLoading(true);
@@ -61,7 +63,7 @@ export default function Home(props) {
       setPostList(postList.concat(data));
       //console.log("postList:", postList.length);
       setOffset(offset + 30);
-      if (postList.length > totalCount) {
+      if (totalCount !== 0 && postList.length >= totalCount) {
         //console.log("here");
         setHasMore(false);
       }
@@ -122,7 +124,7 @@ export default function Home(props) {
             <Hidden xsDown>
               <div
                 style={{
-                  height: "97px",
+                  height: "81px",
                   position: "sticky",
                   display: "flex",
                   justifyContent: "center",
@@ -134,7 +136,7 @@ export default function Home(props) {
                   style={{
                     color: "#2F2F2F",
                     margin: 0,
-                    fontSize: "16px",
+                    fontSize: "22px",
                     fontWeight: "bold",
                     textDecoration: "none"
                   }}
@@ -169,7 +171,7 @@ export default function Home(props) {
               id="scrollable"
               style={{
                 position: "relative",
-                height: "calc(100vh - 130px)",
+                height: `calc(${containerHeight}px - 114px)`,
                 overflowY: "auto"
               }}
             >

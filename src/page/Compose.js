@@ -4,7 +4,6 @@ import { IconButton, Hidden } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { getBoosts } from "../api/boost";
 import { FetchPostDetail } from "../api/TwetchGraph";
-
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
 import AppBar from "../components/AppBar";
@@ -69,7 +68,7 @@ export default function Compose(props) {
             <Hidden xsDown>
               <div
                 style={{
-                  height: "97px",
+                  height: "81px",
                   position: "sticky",
                   display: "flex",
                   justifyContent: "space-between",
@@ -85,7 +84,7 @@ export default function Compose(props) {
                   style={{
                     color: "#2F2F2F",
                     margin: 0,
-                    fontSize: "16px",
+                    fontSize: "22px",
                     fontWeight: "bold",
                     textDecoration: "none",
                     cursor: "pointer"
