@@ -13,7 +13,7 @@ export default function Auth() {
   const TwetchLogin = (e) => {
     // config
     let redirectUrl = `https://${host}/auth/callback`;
-    let appName = "ZeroSchool";
+    let appName = "Sapience";
     e.preventDefault();
     window.location.href = `https://twetch.app/auth/authorize?appName=${appName}&redirectUrl=${redirectUrl}`;
   };
@@ -22,7 +22,7 @@ export default function Auth() {
     // is also in TwetchAction component
     const imbCli = window.location.href.includes("csb")
       ? "d1782f2caa2a71f85576cc0423818882"
-      : "ce4eb6ea41a4f43044dd7e71c08e50b2";
+      : "d0363b6333315b5a3f7143e1b5d71181";
     let getPermissionForCurrentUser = () => {
       return localStorage.token;
     };
@@ -128,7 +128,7 @@ export default function Auth() {
             lineWeight: "36px"
           }}
         >
-          ZeroSchool
+          Sapience
         </p>
         <p
           style={{
@@ -139,7 +139,7 @@ export default function Auth() {
             lineHeight: "20px"
           }}
         >
-          Ceci n'est pas une école
+          Nouvelle(s) École(s)
         </p>
         <div
           style={{
@@ -159,14 +159,13 @@ export default function Auth() {
               fontWeight: 600,
               lineHeight: "24px",
               borderRadius: "6px",
-              textTransform: "none",
-              backgroundColor: "#085AF6"
+              textTransform: "none"
             }}
             variant="contained"
             color="primary"
             onClick={TwetchLogin}
           >
-            Log in with Twetch
+            Se connecter avec Twetch
           </Button>
         </div>
         <div
@@ -187,14 +186,13 @@ export default function Auth() {
               fontWeight: 600,
               lineHeight: "24px",
               borderRadius: "6px",
-              textTransform: "none",
-              backgroundColor: "#085AF6"
+              textTransform: "none"
             }}
             variant="contained"
             color="primary"
             onClick={MBLogin}
           >
-            Log in with MoneyButton
+            Se connecter avec MoneyButton
           </Button>
         </div>
         <div
@@ -215,14 +213,13 @@ export default function Auth() {
               fontWeight: 600,
               lineHeight: "24px",
               borderRadius: "6px",
-              textTransform: "none",
-              backgroundColor: "#085AF6"
+              textTransform: "none"
             }}
             variant="contained"
             color="primary"
             onClick={RelayXLogin}
           >
-            Log in with RelayX
+            Se connecter avec RelayX
           </Button>
           <div
             style={{
@@ -241,7 +238,7 @@ export default function Auth() {
                   lineHeight: "20px"
                 }}
               >
-                Navigate anonymously
+                Naviguer anonymement
               </p>
             </Link>
           </div>

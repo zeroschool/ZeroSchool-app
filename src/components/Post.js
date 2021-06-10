@@ -7,7 +7,7 @@ import {
   IconButton,
   Snackbar
 } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
+import { Alert } from "@material-ui/lab";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
@@ -68,7 +68,7 @@ export default function Post(props) {
 
     window.boostPublish.open({
       content: txid,
-      tag: "$zeroschool",
+      tag: "$spnc",
       wallets: ["moneybutton", "relayx"],
       initialWallet: "moneybutton",
       diff: { min: 1, max: 100, initial: 1 },
@@ -294,9 +294,9 @@ export default function Post(props) {
           variant="filled"
           onClick={(e) => e.stopPropagation()}
         >
-          Please{" "}
+          Veuillez vous{" "}
           <Link to="/auth" style={{ color: "inherit" }}>
-            log in
+            connecter
           </Link>
         </Alert>
       </Snackbar>
