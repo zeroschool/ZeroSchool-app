@@ -39,7 +39,7 @@ export default function Detail(props) {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const height = use100vh();
-  const containerHeight = height ? "height - 84px" : "100vh - 84px";
+  const containerHeight = height ? `${height} - 84px` : "100vh - 84px";
 
   useEffect(() => {
     setLoading(true);
@@ -126,7 +126,7 @@ export default function Detail(props) {
             style={{
               position: "relative",
               height: `calc(${containerHeight})`,
-              overflowY: "scroll"
+              overflowY: "auto"
             }}
           >
             {parents.map((parent) => (

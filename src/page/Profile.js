@@ -43,7 +43,7 @@ export default function Profile(props) {
   const [hasMore, setHasMore] = useState(true);
   const history = useHistory();
   const height = use100vh();
-  const containerHeight = height ? "height - 84px" : "100vh - 84px";
+  const containerHeight = height ? `${height} - 114px` : "100vh - 114px";
 
   const fetchMore = async () => {
     FetchUserPosts(userId, orderBy, offset).then((res) => {
@@ -160,7 +160,7 @@ export default function Profile(props) {
               style={{
                 position: "relative",
                 height: `calc(${containerHeight})`,
-                overflowY: "scroll"
+                overflowY: "auto"
               }}
             >
               <div
