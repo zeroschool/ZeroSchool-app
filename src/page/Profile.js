@@ -44,7 +44,6 @@ export default function Profile(props) {
   const history = useHistory();
   const height = use100vh();
   const containerHeight = height ? height : "100vh";
-  console.log(containerHeight);
 
   const fetchMore = async () => {
     FetchUserPosts(userId, orderBy, offset).then((res) => {
