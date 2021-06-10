@@ -9,7 +9,7 @@ import {
   Select
 } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-
+import { use100vh } from "react";
 import { getBoosts } from "../api/boost";
 import { FetchPostDetail, FetchPostReplies } from "../api/TwetchGraph";
 import LeftPane from "../components/LeftPane";
@@ -38,6 +38,7 @@ export default function Detail(props) {
   const [boosts, setBoosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const height = use100vh();
 
   useEffect(() => {
     setLoading(true);
@@ -123,7 +124,7 @@ export default function Detail(props) {
           <div
             style={{
               position: "relative",
-              height: "calc(100vh - 84px)",
+              height: `calc(${height} - 84px)`,
               overflowY: "scroll"
             }}
           >

@@ -14,6 +14,7 @@
     "boostpow-js": "1.2.22",
     "bsv": "2.0.10-beta1",
     "react": "17.0.2",
+    "react-div-100vh": "0.6.0",
     "react-dom": "17.0.2",
     "react-infinite-scroll-component": "6.1.0",
     "react-router-dom": "5.2.0",

@@ -4,7 +4,6 @@ import { IconButton, Hidden } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { getBoosts } from "../api/boost";
 import { FetchPostDetail } from "../api/TwetchGraph";
-
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
 import AppBar from "../components/AppBar";

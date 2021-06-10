@@ -8,6 +8,7 @@ import {
   MenuItem,
   Select
 } from "@material-ui/core";
+import { use100vh } from "react-div-100vh";
 
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -44,6 +45,7 @@ export default function Questions(props) {
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const height = use100vh();
 
   useEffect(() => {
     setLoading(true);
@@ -167,7 +169,7 @@ export default function Questions(props) {
               id="scrollable"
               style={{
                 position: "relative",
-                height: "calc(100vh - 114px)",
+                height: `calc(${height} - 114px)`,
                 overflowY: "auto"
               }}
             >

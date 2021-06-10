@@ -10,7 +10,7 @@ import {
   Select
 } from "@material-ui/core";
 import InfiniteScroll from "react-infinite-scroll-component";
-
+import { use100vh } from "react-div-100vh";
 import { getBoosts } from "../api/boost";
 import { FetchUserData, FetchUserPosts } from "../api/TwetchGraph";
 import StickyButton from "../components/StickyButton";
@@ -42,6 +42,7 @@ export default function Profile(props) {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const history = useHistory();
+  const height = use100vh();
 
   const fetchMore = async () => {
     FetchUserPosts(userId, orderBy, offset).then((res) => {
@@ -157,7 +158,7 @@ export default function Profile(props) {
               id="scrollable"
               style={{
                 position: "relative",
-                height: "calc(100vh - 84px)",
+                height: `calc(${height} - 84px)`,
                 overflowY: "scroll"
               }}
             >
