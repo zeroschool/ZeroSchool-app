@@ -46,7 +46,7 @@ export default function Questions(props) {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const height = use100vh();
-  const containerHeight = height ? `${height} - 114px` : "100vh - 114px";
+  const containerHeight = height ? height : "100vh";
 
   useEffect(() => {
     setLoading(true);
@@ -170,7 +170,7 @@ export default function Questions(props) {
               id="scrollable"
               style={{
                 position: "relative",
-                height: `calc(${containerHeight})`,
+                height: `calc(${containerHeight}px - 114px)`,
                 overflowY: "auto"
               }}
             >

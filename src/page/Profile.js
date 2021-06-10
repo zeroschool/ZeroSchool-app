@@ -43,7 +43,8 @@ export default function Profile(props) {
   const [hasMore, setHasMore] = useState(true);
   const history = useHistory();
   const height = use100vh();
-  const containerHeight = height ? `${height} - 114px` : "100vh - 114px";
+  const containerHeight = height ? height : "100vh";
+  console.log(containerHeight);
 
   const fetchMore = async () => {
     FetchUserPosts(userId, orderBy, offset).then((res) => {
@@ -159,8 +160,8 @@ export default function Profile(props) {
               id="scrollable"
               style={{
                 position: "relative",
-                height: `calc(${containerHeight})`,
-                overflowY: "auto"
+                height: `calc(${containerHeight}px - 84px)`,
+                overflowY: "scroll"
               }}
             >
               <div
@@ -189,7 +190,7 @@ export default function Profile(props) {
               </div>
               <div
                 style={{
-                  width: "calc(100% - 58px)",
+                  width: `calc(${containerHeight} - 58px)`,
                   display: "inline-block",
                   verticalAlign: "top",
                   paddingLeft: "16px"
