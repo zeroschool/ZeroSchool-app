@@ -157,7 +157,7 @@ export default function Profile(props) {
               id="scrollable"
               style={{
                 position: "relative",
-                height: "calc(100vh - 95px)",
+                height: "calc(100% - 95px)",
                 overflowY: "scroll"
               }}
             >

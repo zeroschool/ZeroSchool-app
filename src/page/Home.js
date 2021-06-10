@@ -169,7 +169,7 @@ export default function Home(props) {
               id="scrollable"
               style={{
                 position: "relative",
-                height: "calc(100vh - 130px)",
+                height: "calc(100% - 130px)",
                 overflowY: "auto"
               }}
             >

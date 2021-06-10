@@ -80,7 +80,7 @@ export default function Detail(props) {
           <div
             style={{
               position: "relative",
-              height: "calc(100vh - 72px)",
+              height: "calc(100% - 72px)",
               overflowY: "scroll"
             }}
           >
