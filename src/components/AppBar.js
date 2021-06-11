@@ -221,7 +221,7 @@ export default function AppBar(props) {
             )}
           </IconButton>
           <IconButton
-            href="https://twetch.app/chat/home"
+            href="https://twetch.app/search/advanced"
             target="_blank"
             rel="noreferrer"
           >
