@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   Button,
+  IconButton,
   CircularProgress,
   FormControl,
   Hidden,
   MenuItem,
-  OutlinedInput,
   Select,
   TextField,
   Typography
 } from "@material-ui/core";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+
 import { use100vh } from "react-div-100vh";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import { getBoosts } from "../api/boost";
 import { FetchPosts } from "../api/TwetchGraph";
-import Composer from "../components/Composer";
 import AppBar from "../components/AppBar";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
@@ -151,41 +152,46 @@ export default function Search(props) {
           }}
         >
           <div style={{ cursor: "pointer" }} onClick={scrollTop}>
-            <Hidden smUp>
-              <AppBar />
-            </Hidden>
-            <Hidden xsDown>
+            <div
+              style={{
+                height: "81px",
+                position: "sticky",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "16px",
+                borderBottom: "1px solid #F2F2F2"
+              }}
+            >
+              <IconButton onClick={() => history.goBack()}>
+                <KeyboardBackspaceIcon color="primary" />
+              </IconButton>
               <div
                 style={{
-                  height: "81px",
-                  position: "sticky",
-                  display: "flex",
-                  justifyContent: "center",
-                  padding: "16px",
-                  borderBottom: "1px solid #F2F2F2"
+                  color: "#2F2F2F",
+                  margin: 0,
+                  fontSize: "22px",
+                  fontWeight: "bold",
+                  textDecoration: "none",
+                  cursor: "pointer"
                 }}
               >
-                <Typography
-                  style={{
-                    flex: 2,
-                    color: "#000000",
-                    overflow: "hidden",
-                    fontSize: "18px",
-                    minWidth: 0,
-                    textAlign: "center",
-                    fontWeight: "bold",
-                    lineHeight: "20px",
-                    whiteSpace: "nowrap",
-                    textOverflow: "ellipsis",
-                    verticalAlign: "top"
-                  }}
-                  variant="body1"
-                >
-                  Search
-                </Typography>
+                Twetch Detail
               </div>
-            </Hidden>
-            <div style={{ paddingBottom: "16px" }}>
+              <div>
+                <Button
+                  link
+                  color="primary"
+                  href="https://twetch.app/search/advanced"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ textDecoration: "none" }}
+                >
+                  Advanced
+                </Button>
+              </div>
+            </div>
+            <div style={{ paddingBottom: "12px" }}>
               <TextField
                 className="SearchBorderRadius"
                 variant="outlined"
@@ -221,7 +227,7 @@ export default function Search(props) {
               id="scrollable"
               style={{
                 position: "relative",
-                height: `calc(${containerHeight}px - 114px)`,
+                height: `calc(${containerHeight}px - 178px)`,
                 overflowY: "auto"
               }}
             >

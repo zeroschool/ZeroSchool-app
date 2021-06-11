@@ -220,11 +220,7 @@ export default function AppBar(props) {
               <MenuOutlinedIcon />
             )}
           </IconButton>
-          <IconButton
-            href="https://twetch.app/search/advanced"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <IconButton component={Link} to="/search/?searchTerm=" d>
             <SearchIcon color="primary" />
           </IconButton>
         </div>

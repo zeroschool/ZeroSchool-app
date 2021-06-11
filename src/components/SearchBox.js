@@ -1,71 +1,73 @@
 import React, { useState } from "react";
-import {
-  FormControl,
-  OutlinedInput,
-  InputAdornment,
-  TextField
-} from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import { FormControl, OutlinedInput, InputAdornment } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 
 export default function SearchBox() {
   const [input, setInput] = useState("");
 
+  const history = useHistory();
   const handleChange = (prop) => (event) => {
     setInput(event.target.value);
-  };
-  console.log(input);
-
-  const handleSubmit = (prop) => (event) => {
-    console.log("here");
   };
 
   return (
     <div>
-      <FormControl
-        style={{
-          color: "#000000",
-          borderRadius: "6px",
-          backgroundColor: "#F5F5F5"
-        }}
-        fullWidth
-        onSubmit={handleSubmit}
+      <form
+        value={input}
+        onSubmit={() =>
+          history.push({
+            pathname: "/search/",
+            search: `searchTerm=${input}`
+          })
+        }
       >
-        <OutlinedInput
+        <FormControl
+          type="submit"
           style={{
             color: "#000000",
             borderRadius: "6px",
             backgroundColor: "#F5F5F5"
           }}
-          id="standard-search"
-          variant="outlined"
-          disableUnderline
-          value={input}
-          onChange={handleChange(input)}
-          placeholder="Search"
-          required
-          startAdornment={
-            <InputAdornment position="start">
-              <SearchIcon color="primary" />
-            </InputAdornment>
-          }
-          endAdornment={
-            <InputAdornment position="end">
-              <a
-                href="https://twetch.app/search.advanced"
-                target="_blank"
-                rel="noreferrer"
-                style={{ textDecoration: "none" }}
-              >
-                Advanced
-              </a>
-            </InputAdornment>
-          }
-          aria-describedby="standard-search-helper-text"
-          inputProps={{
-            "aria-label": "search Term"
-          }}
-        />
-      </FormControl>
+          fullWidth
+        >
+          <OutlinedInput
+            type="text"
+            style={{
+              color: "#000000",
+              borderRadius: "6px",
+              backgroundColor: "#F5F5F5"
+            }}
+            id="standard-search"
+            variant="outlined"
+            value={input}
+            onChange={handleChange(input)}
+            placeholder="Search"
+            required
+            startAdornment={
+              <InputAdornment position="start">
+                <SearchIcon color="primary" />
+              </InputAdornment>
+            }
+            endAdornment={
+              <InputAdornment position="end">
+                <a
+                  href="https://twetch.app/search.advanced"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ textDecoration: "none" }}
+                >
+                  Advanced
+                </a>
+              </InputAdornment>
+            }
+            aria-describedby="standard-search-helper-text"
+            inputProps={{
+              "aria-label": "search Term"
+            }}
+          />
+        </FormControl>
+      </form>
     </div>
   );
 }
