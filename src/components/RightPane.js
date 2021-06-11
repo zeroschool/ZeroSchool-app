@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+
+import SearchBox from "./SearchBox";
 
 export default function RightPane() {
+  const [input, setInput] = useState("");
+
+  const handleChange = (e) => {
+    setInput(e.target.value);
+    console.log(e.target.value);
+  };
+
   return (
     <div
       style={{
@@ -17,13 +26,11 @@ export default function RightPane() {
           top: "0px",
           zIndex: 1000,
           position: "sticky",
-          paddingTop: "16px",
-          marginBottom: "8px",
-          paddingBottom: "16px",
-          backgroundColor: "#F5F5F5"
+          padding: "16px",
+          marginBottom: "8px"
         }}
       >
-        <span style={{ height: "60px", width: "319px" }} />
+        {window.location.pathname !== "/search/" && <SearchBox />}
       </div>
       <div
         style={{

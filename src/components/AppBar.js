@@ -17,6 +17,10 @@ import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
 import EmojiObjectsOutlinedIcon from "@material-ui/icons/EmojiObjectsOutlined";
 import StarsOutlinedIcon from "@material-ui/icons/StarsOutlined";
 import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
+import SearchIcon from "@material-ui/icons/Search";
+
+import Messages from "./Messages";
+import Notifications from "./Notifications";
 
 export default function AppBar(props) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -206,7 +210,10 @@ export default function AppBar(props) {
         }}
       >
         <div style={{ float: "left" }}>
-          <IconButton onClick={handleDrawerToggle}>
+          <IconButton
+            style={{ height: "36px", width: "36px" }}
+            onClick={handleDrawerToggle}
+          >
             {localStorage.getItem("tokenTwetchAuth") ? (
               <Avatar
                 src={localStorage.getItem("icon")}
@@ -215,6 +222,9 @@ export default function AppBar(props) {
             ) : (
               <MenuOutlinedIcon />
             )}
+          </IconButton>
+          <IconButton component={Link} to="/search/?searchTerm=" d>
+            <SearchIcon color="primary" />
           </IconButton>
         </div>
         <div style={{ alignContent: "center" }}>
@@ -232,10 +242,27 @@ export default function AppBar(props) {
           </Link>
         </div>
         <div style={{ float: "right" }}>
-          {!localStorage.tokenTwetchAuth && (
+          {!localStorage.tokenTwetchAuth ? (
             <Link style={{ textDecoration: "none" }} to="/auth">
               <Button color="primary">Log In</Button>
             </Link>
+          ) : (
+            <div>
+              <IconButton
+                href="https://twetch.app/notifications"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Notifications color="primary" />
+              </IconButton>
+              <IconButton
+                href="https://twetch.app/chat/home"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Messages color="primary" />
+              </IconButton>
+            </div>
           )}
         </div>
       </div>

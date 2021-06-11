@@ -16,6 +16,9 @@ import EmojiObjectsOutlinedIcon from "@material-ui/icons/EmojiObjectsOutlined";
 import StarsOutlinedIcon from "@material-ui/icons/StarsOutlined";
 import AddCircleOutlineRoundedIcon from "@material-ui/icons/AddCircleOutlineRounded";
 
+import Notifications from "./Notifications";
+import Messages from "./Messages";
+
 export default function LeftPane() {
   return (
     <div
@@ -123,6 +126,34 @@ export default function LeftPane() {
           >
             <div>
               <List style={{ marginLeft: "-16px" }}>
+                <ListItem
+                  button
+                  component="a"
+                  href="https://twetch.app/notifications"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <ListItemIcon>
+                    <Notifications />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <div style={{ display: "flex" }}>Notifications</div>
+                  </ListItemText>
+                </ListItem>
+                <ListItem
+                  button
+                  component="a"
+                  href="https://twetch.app/chat/home"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <ListItemIcon>
+                    <Messages />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <div style={{ display: "flex" }}>Chat</div>
+                  </ListItemText>
+                </ListItem>
                 <ListItem button component={Link} to="/">
                   <ListItemIcon>
                     <HomeOutlinedIcon />

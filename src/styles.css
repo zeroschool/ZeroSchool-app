@@ -24,3 +24,11 @@ body {
   bottom: 0;
   left: 0;
 }
+
+.SearchBorderRadius fieldset {
+  border-radius: 100px;
+}
+
+.hoverRed :hover {
+  color: "#E81212";
+}
