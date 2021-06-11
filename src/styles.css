@@ -28,3 +28,7 @@ body {
 .SearchBorderRadius fieldset {
   border-radius: 100px;
 }
+
+.hoverRed :hover {
+  color: "#E81212";
+}

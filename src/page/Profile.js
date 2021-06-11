@@ -215,6 +215,7 @@ export default function Profile(props) {
                 <div
                   style={{
                     color: "#828282",
+                    fontSize: "16px",
                     display: "inline-block",
                     verticalAlign: "top",
                     marginLeft: "4px"

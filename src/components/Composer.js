@@ -9,7 +9,7 @@ import {
   TextField,
   Typography
 } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
+import { Alert } from "@material-ui/lab";
 import { Link } from "react-router-dom";
 
 import { BSVABI } from "../utils/BSVABI";

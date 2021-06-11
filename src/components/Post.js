@@ -8,11 +8,6 @@ import {
   Snackbar
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
-import LoopIcon from "@material-ui/icons/Loop";
 
 import { BSVABI } from "../utils/BSVABI";
 import {
@@ -23,6 +18,10 @@ import {
   publishRequest
 } from "../api/TwetchActions";
 
+import LikeIcon from "../resources/LikeIcon";
+import ReplyIcon from "../resources/ReplyIcon";
+import BoostIcon from "../resources/BoostIcon";
+import HashIcon from "../resources/HashIcon";
 import TwetchLogo from "../resources/TwetchLogo";
 import Timestamp from "../utils/Timestamp";
 
@@ -39,62 +38,6 @@ export default function Post(props) {
   const getDetail = (e) => {
     e.stopPropagation();
     history.push(`/t/${postTx}`);
-  };
-
-  const like = (e) => {
-    e.stopPropagation();
-    if (!localStorage.tokenTwetchAuth) {
-      setOpenAuth(true); //Snackbar
-      return;
-    }
-    likePost(postTx);
-  };
-  const reply = (e) => {
-    e.stopPropagation();
-    if (!localStorage.tokenTwetchAuth) {
-      setOpenAuth(true); // Snackbar
-      return;
-    }
-    history.push(`/compose/${postTx}`);
-  };
-
-  const boost = (e) => {
-    e.stopPropagation();
-
-    boostContent(postTx);
-  };
-  async function boostContent(txid) {
-    let penny = await getPenny();
-
-    window.boostPublish.open({
-      content: txid,
-      tag: "$zeroschool",
-      wallets: ["moneybutton", "relayx"],
-      initialWallet: "moneybutton",
-      diff: { min: 1, max: 100, initial: 1 },
-      outputs: [
-        {
-          to: "1C2meU6ukY9S4tY6DdbhNqc8PuDhif5vPE",
-          amount: penny,
-          currency: "BSV"
-        }
-      ],
-      onPayment: (payment, boostJobStatus) => {
-        setBoostJobTx(payment.txid);
-        console.log(payment, boostJobStatus);
-        setOpenBoost(true);
-      }
-    });
-  }
-
-  const categorize = (e) => {
-    e.stopPropagation();
-    if (!localStorage.tokenTwetchAuth) {
-      // Snackbar
-      return;
-    }
-
-    console.log("categorize");
   };
 
   const handleClose = (event, reason) => {
@@ -255,34 +198,23 @@ export default function Post(props) {
             }}
           >
             <Grid item className="Like">
-              {postData.youLikedCalc > 0 ? (
-                <IconButton onClick={like} disabled>
-                  <FavoriteIcon color="secondary" />
-                </IconButton>
-              ) : (
-                <IconButton onClick={like}>
-                  <FavoriteBorderIcon />
-                </IconButton>
-              )}
-
-              <span>{postData.numLikes}</span>
+              <LikeIcon
+                tx={postData.transaction}
+                likedCalc={postData.youLikedCalc}
+                count={postData.numLikes}
+              />
             </Grid>
             <Grid item className="Reply">
-              <IconButton onClick={reply}>
-                <QuestionAnswerIcon />
-              </IconButton>
-              <span>{postData.replyCount}</span>
+              <ReplyIcon
+                tx={postData.transaction}
+                count={postData.replyCount}
+              />
             </Grid>
             <Grid item className="Boost">
-              <IconButton onClick={boost}>
-                <StarBorderIcon />
-              </IconButton>
-              <span>{diff}</span>
+              <BoostIcon tx={postData.transaction} count={diff} />
             </Grid>
             <Grid item className="Categories">
-              <IconButton onClick={categorize}>
-                <LoopIcon />
-              </IconButton>
+              <HashIcon tx={postData.transaction} />
             </Grid>
           </Grid>
         </div>

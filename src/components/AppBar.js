@@ -210,7 +210,10 @@ export default function AppBar(props) {
         }}
       >
         <div style={{ float: "left" }}>
-          <IconButton onClick={handleDrawerToggle}>
+          <IconButton
+            style={{ height: "36px", width: "36px" }}
+            onClick={handleDrawerToggle}
+          >
             {localStorage.getItem("tokenTwetchAuth") ? (
               <Avatar
                 src={localStorage.getItem("icon")}
