@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  FormControl,
+  Input,
+  InputAdornment,
+  TextField
+} from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
+import Search from "./Search";
 
 export default function RightPane() {
+  const [input, setInput] = useState("");
+
+  const handleChange = (e) => {
+    setInput(e.target.value);
+    console.log(e.target.value);
+  };
   return (
     <div
       style={{
@@ -17,13 +31,11 @@ export default function RightPane() {
           top: "0px",
           zIndex: 1000,
           position: "sticky",
-          paddingTop: "16px",
-          marginBottom: "8px",
-          paddingBottom: "16px",
-          backgroundColor: "#F5F5F5"
+          padding: "16px",
+          marginBottom: "8px"
         }}
       >
-        <span style={{ height: "60px", width: "319px" }} />
+        <Search />
       </div>
       <div
         style={{
