@@ -7,12 +7,18 @@ import {
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 
-export default function Search() {
+export default function SearchBox() {
   const [input, setInput] = useState("");
 
-  const handleChange = (v) => {
-    console.log(v);
+  const handleChange = (prop) => (event) => {
+    setInput(event.target.value);
   };
+  console.log(input);
+
+  const handleSubmit = (prop) => (event) => {
+    console.log("here");
+  };
+
   return (
     <div>
       <FormControl
@@ -22,6 +28,7 @@ export default function Search() {
           backgroundColor: "#F5F5F5"
         }}
         fullWidth
+        onSubmit={handleSubmit}
       >
         <OutlinedInput
           style={{

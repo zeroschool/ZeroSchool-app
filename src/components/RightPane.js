@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import {
-  FormControl,
-  Input,
-  InputAdornment,
-  TextField
-} from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
-import Search from "./Search";
+
+import SearchBox from "./SearchBox";
 
 export default function RightPane() {
   const [input, setInput] = useState("");
@@ -15,6 +9,7 @@ export default function RightPane() {
     setInput(e.target.value);
     console.log(e.target.value);
   };
+
   return (
     <div
       style={{
@@ -35,7 +30,7 @@ export default function RightPane() {
           marginBottom: "8px"
         }}
       >
-        <Search />
+        {window.location.pathname !== "/search/" && <SearchBox />}
       </div>
       <div
         style={{
