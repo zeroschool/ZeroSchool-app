@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Switch, Redirect, Route, useHistory } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Switch, Route } from "react-router-dom";
 
 import { getABI } from "./api/TwetchActions";
 

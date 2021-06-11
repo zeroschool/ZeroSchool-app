@@ -17,6 +17,10 @@ import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
 import EmojiObjectsOutlinedIcon from "@material-ui/icons/EmojiObjectsOutlined";
 import StarsOutlinedIcon from "@material-ui/icons/StarsOutlined";
 import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
+import SearchIcon from "@material-ui/icons/Search";
+
+import Messages from "./Messages";
+import Notifications from "./Notifications";
 
 export default function AppBar(props) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -216,6 +220,13 @@ export default function AppBar(props) {
               <MenuOutlinedIcon />
             )}
           </IconButton>
+          <IconButton
+            href="https://twetch.app/chat/home"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <SearchIcon color="primary" />
+          </IconButton>
         </div>
         <div style={{ alignContent: "center" }}>
           <Link
@@ -232,10 +243,27 @@ export default function AppBar(props) {
           </Link>
         </div>
         <div style={{ float: "right" }}>
-          {!localStorage.tokenTwetchAuth && (
+          {!localStorage.tokenTwetchAuth ? (
             <Link style={{ textDecoration: "none" }} to="/auth">
               <Button color="primary">Log In</Button>
             </Link>
+          ) : (
+            <div>
+              <IconButton
+                href="https://twetch.app/notifications"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Notifications color="primary" />
+              </IconButton>
+              <IconButton
+                href="https://twetch.app/chat/home"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Messages color="primary" />
+              </IconButton>
+            </div>
           )}
         </div>
       </div>
