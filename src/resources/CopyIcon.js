@@ -20,7 +20,6 @@ export default function CopyIcon(props) {
   };
 
   const handleClose = (e) => {
-    e.stopPropagation();
     setCopied(false);
   };
 
@@ -29,10 +28,8 @@ export default function CopyIcon(props) {
       <IconButton onClick={handleClick}>
         <FilterNoneIcon />
       </IconButton>
-      <Snackbar open={copied} autoHideDuration={1000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success">
-          Copied to clipboard
-        </Alert>
+      <Snackbar open={copied} autoHideDuration={3000} onClose={handleClose}>
+        <Alert severity="success">Copied to clipboard</Alert>
       </Snackbar>
     </div>
   );
