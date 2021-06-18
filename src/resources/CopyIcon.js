@@ -1,8 +1,13 @@
+import { useState } from "react";
 import { IconButton } from "@material-ui/core";
+import Snackbar from "@material-ui/core/Snackbar";
+import { Alert } from "@material-ui/lab/";
 import FilterNoneIcon from "@material-ui/icons/FilterNone";
 
 export default function CopyIcon(props) {
   const url = `https://zeroschool.org/t/${props.tx}`;
+  const [copied, setCopied] = useState(false);
+
   const handleClick = (e) => {
     e.stopPropagation();
     const el = document.createElement("textarea");
@@ -10,13 +15,25 @@ export default function CopyIcon(props) {
     document.body.appendChild(el);
     el.select();
     document.execCommand("copy");
+    setCopied(true);
     document.body.removeChild(el);
-    alert("copied to clipboard");
+  };
+
+  const handleClose = (e) => {
+    e.stopPropagation();
+    setCopied(false);
   };
 
   return (
-    <IconButton onClick={handleClick}>
-      <FilterNoneIcon />
-    </IconButton>
+    <div>
+      <IconButton onClick={handleClick}>
+        <FilterNoneIcon />
+      </IconButton>
+      <Snackbar open={copied} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          Copied to clipboard
+        </Alert>
+      </Snackbar>
+    </div>
   );
 }
