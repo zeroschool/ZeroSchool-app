@@ -1,34 +1,15 @@
 import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
-import {
-  Avatar,
-  Grid,
-  Typography,
-  IconButton,
-  Snackbar
-} from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
-
-import { BSVABI } from "../utils/BSVABI";
-import {
-  arrToScript,
-  digestMessage,
-  getPayees,
-  getPenny,
-  publishRequest
-} from "../api/TwetchActions";
+import { Avatar, Grid, Typography, IconButton } from "@material-ui/core";
 
 import LikeIcon from "../resources/LikeIcon";
 import ReplyIcon from "../resources/ReplyIcon";
 import BoostIcon from "../resources/BoostIcon";
-import HashIcon from "../resources/HashIcon";
+import CopyIcon from "../resources/CopyIcon";
 import TwetchLogo from "../resources/TwetchLogo";
 import Timestamp from "../utils/Timestamp";
 
 export default function Post(props) {
-  const [openAuth, setOpenAuth] = useState(false);
-  const [openBoost, setOpenBoost] = useState(false);
-  const [boostJobTx, setBoostJobTx] = useState("");
   const postTx = props.tx;
   const postData = props.node;
   const diff = props.boostDiff;
@@ -38,15 +19,6 @@ export default function Post(props) {
   const getDetail = (e) => {
     e.stopPropagation();
     history.push(`/t/${postTx}`);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpenAuth(false);
-    setOpenBoost(false);
   };
 
   return (
@@ -213,141 +185,12 @@ export default function Post(props) {
             <Grid item className="Boost">
               <BoostIcon tx={postData.transaction} count={diff} />
             </Grid>
-            <Grid item className="Categories">
-              <HashIcon tx={postData.transaction} />
+            <Grid item className="Copy">
+              <CopyIcon tx={postData.transaction} />
             </Grid>
           </Grid>
         </div>
       </div>
-      <Snackbar open={openAuth} autoHideDuration={6000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity="error"
-          variant="filled"
-          onClick={(e) => e.stopPropagation()}
-        >
-          Please{" "}
-          <Link to="/auth" style={{ color: "inherit" }}>
-            log in
-          </Link>
-        </Alert>
-      </Snackbar>
-      <Snackbar open={openBoost} autoHideDuration={6000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity="info"
-          variant="filled"
-          onClick={(e) => e.stopPropagation()}
-        >
-          Boost job queued!{" "}
-          <a
-            style={{ color: "inherit" }}
-            href={`https://boostpow.com/job/${boostJobTx}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            status
-          </a>
-        </Alert>
-      </Snackbar>
     </Grid>
   );
-}
-async function likePost(txid) {
-  //let likeCount = parseInt(document.getElementById(`${this.id}_count`).innerText);
-
-  let action = "twetch/like@0.0.1";
-
-  let obj = { postTransaction: txid };
-  const abi = new BSVABI(JSON.parse(localStorage.getItem("abi")), { action });
-  abi.fromObject(obj);
-  let payees = await getPayees({ args: abi.toArray(), action });
-  await abi.replace({ "#{invoice}": () => payees.invoice });
-  let arg = abi.action.args.find((e) => e.type === "Signature");
-  const ab = abi
-    .toArray()
-    .slice(arg.messageStartIndex || 0, arg.messageEndIndex + 1);
-  const contentHash = await digestMessage(ab);
-  let outputScript = window.bsv.Script.buildSafeDataOut(abi.toArray()).toASM();
-  let outputs = { currency: "BSV", amount: 0, script: outputScript };
-  let relayOutputs = {
-    currency: "BSV",
-    amount: 0,
-    signatures: ["TWETCH-AIP"],
-    script: arrToScript(abi.args.slice(0, abi.args.length - 5))
-  };
-  outputs = [outputs].concat(payees.payees);
-  //console.log("mb", mbOutputs);
-  relayOutputs = [relayOutputs].concat(payees.payees);
-  //console.log("relay", relayOutputs);
-  let cryptoOperations = [
-    { name: "myAddress", method: "address", key: "identity" },
-    {
-      name: "mySignature",
-      method: "sign",
-      data: contentHash,
-      dataEncoding: "utf8",
-      key: "identity",
-      algorithm: "bitcoin-signed-message"
-    }
-  ];
-  const penny = await getPenny();
-  const liked = outputs.find(
-    (o) => JSON.stringify(o).includes("like") && o.user_id !== "0"
-  );
-  if (liked) {
-    outputs.push({ to: liked.to, amount: penny * 4, currency: "BSV" });
-    outputs.push({
-      to: "1C2meU6ukY9S4tY6DdbhNqc8PuDhif5vPE",
-      amount: penny,
-      currency: "BSV"
-    });
-  }
-  window.twetchPay
-    .pay({
-      //wallets: ["moneybutton", "relayx"],
-      outputs: outputs,
-      label: "Twetch it",
-      moneybuttonProps: {
-        cryptoOperations: cryptoOperations,
-        onCryptoOperations: (cryptoOperations) => {
-          console.log(cryptoOperations);
-        }
-      },
-      relayxProps: {},
-      onPayment: (payment) => {
-        console.log({ payment });
-        let paymail, pubkey;
-        if (payment.walletResponse.senderPaymail) {
-          paymail = payment.walletResponse.senderPaymail;
-          pubkey = payment.walletResponse.signaturePubkey;
-        } else {
-          paymail = payment.walletResponse.paymail;
-          pubkey = payment.walletResponse.identity;
-        }
-        console.log("Paymail: ", paymail);
-        console.log("Public (Identity) key: ", pubkey);
-        console.log("txid: ", payment.txid);
-        console.log("rawTx: ", payment.rawtx);
-
-        let params = {
-          signed_raw_tx: payment.rawtx,
-          action: action,
-          broadcast: true,
-          invoice: payees.invoice,
-          payParams: {
-            tweetFromTwetch: false,
-            hideTweetFromTwetchLink: false
-          }
-        };
-
-        publishRequest(params);
-      }
-    })
-    .then((res) => {
-      console.log(res);
-    });
-
-  //await build(txid, "twetch/like@0.0.1", false);
-  //await send("twetch/like@0.0.1", txid, false);
 }

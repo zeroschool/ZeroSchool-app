@@ -4,15 +4,6 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import { useState } from "react";
 
-import { BSVABI } from "../utils/BSVABI";
-import {
-  arrToScript,
-  digestMessage,
-  getPayees,
-  getPenny,
-  publishRequest
-} from "../api/TwetchActions";
-
 const theme = createMuiTheme({
   palette: {
     primary: {
