@@ -207,7 +207,7 @@ export default function Post(props) {
             <Grid item className="Reply">
               <ReplyIcon
                 tx={postData.transaction}
-                count={postData.replyCount}
+                count={postData.postsByReplyPostId.totalCount}
               />
             </Grid>
             <Grid item className="Boost">

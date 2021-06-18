@@ -16,7 +16,9 @@ const PostFields = `{
   createdAt
   id
   numLikes
-  replyCount
+  postsByReplyPostId {
+    totalCount
+  }
   transaction
   youLikedCalc
   userId
