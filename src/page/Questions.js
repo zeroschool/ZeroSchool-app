@@ -158,9 +158,9 @@ export default function Questions(props) {
                 value={OrderToIndex[orderBy]}
                 onChange={handleChangeOrder}
               >
-                <MenuItem value={0}>Récents</MenuItem>
-                <MenuItem value={10}>Anciens</MenuItem>
-                <MenuItem value={20}>Économie</MenuItem>
+                <MenuItem value={0}>Latest</MenuItem>
+                <MenuItem value={10}>Oldest</MenuItem>
+                <MenuItem value={20}>Economy</MenuItem>
               </Select>
             </FormControl>
           </div>
@@ -196,7 +196,7 @@ export default function Questions(props) {
                 }
                 endMessage={
                   <p style={{ textAlign: "center" }}>
-                    <b>Bravo ! Vous avez tout vu !</b>
+                    <b>Yay, you've seen it all!</b>
                   </p>
                 }
               >

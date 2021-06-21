@@ -148,7 +148,7 @@ export default function Profile(props) {
                     cursor: "pointer"
                   }}
                 >
-                  Profile {userData.name && `de ${userData.name}`}
+                  {userData.name && `${userData.name}'s`} Profile
                 </div>
                 <div></div>
               </div>
@@ -243,9 +243,9 @@ export default function Profile(props) {
                   value={OrderToIndex[orderBy]}
                   onChange={handleChangeOrder}
                 >
-                  <MenuItem value={0}>Récents</MenuItem>
-                  <MenuItem value={10}>Anciens</MenuItem>
-                  <MenuItem value={20}>Économie</MenuItem>
+                  <MenuItem value={0}>Latest</MenuItem>
+                  <MenuItem value={10}>Oldest</MenuItem>
+                  <MenuItem value={20}>Economy</MenuItem>
                 </Select>
               </FormControl>
               <InfiniteScroll
@@ -267,7 +267,7 @@ export default function Profile(props) {
                 }
                 endMessage={
                   <p style={{ textAlign: "center" }}>
-                    <b>Bravo ! Vous avez tout vu !</b>
+                    <b>Yay, you've seen it all!</b>
                   </p>
                 }
               >

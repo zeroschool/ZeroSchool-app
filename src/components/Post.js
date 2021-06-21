@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
+import { Avatar, Grid, IconButton, Typography } from "@material-ui/core";
 import LikeIcon from "../resources/LikeIcon";
 import ReplyIcon from "../resources/ReplyIcon";
 import BoostIcon from "../resources/BoostIcon";

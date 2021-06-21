@@ -176,7 +176,7 @@ export default function Search(props) {
                   cursor: "pointer"
                 }}
               >
-                Twetch Detail
+                Search
               </div>
               <div>
                 <Button
@@ -216,7 +216,7 @@ export default function Search(props) {
                 onChange={handleChangeOrder}
               >
                 <MenuItem value={0}>Latest</MenuItem>
-                <MenuItem value={10}>Earliest</MenuItem>
+                <MenuItem value={10}>Oldest</MenuItem>
                 <MenuItem value={20}>Economy</MenuItem>
               </Select>
             </FormControl>
@@ -250,7 +250,7 @@ export default function Search(props) {
                 }
                 endMessage={
                   <p style={{ textAlign: "center" }}>
-                    <b>Yay! You have seen it all</b>
+                    <b>Yay, you've seen it all!</b>
                   </p>
                 }
               >

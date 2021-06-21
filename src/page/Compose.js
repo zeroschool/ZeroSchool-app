@@ -91,8 +91,8 @@ export default function Compose(props) {
                   }}
                 >
                   {postData[0]
-                    ? `En réponse à ${postData[0].node.userByUserId.name}`
-                    : "Nouveau message"}
+                    ? `In reply to ${postData[0].node.userByUserId.name}`
+                    : "New Post"}
                 </div>
                 <div></div>
               </div>

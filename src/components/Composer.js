@@ -5,12 +5,9 @@ import {
   Grid,
   InputAdornment,
   LinearProgress,
-  Snackbar,
   TextField,
   Typography
 } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
-import { Link } from "react-router-dom";
 
 import { BSVABI } from "../utils/BSVABI";
 import { twquery } from "../api/TwetchGraph";
@@ -24,7 +21,7 @@ import {
 export default function Composer(props) {
   const replyTx = props.replyTx;
   const [placeholder, setPlaceholder] = useState(
-    "Que voulez vous *vraiment* apprendre ?"
+    "What do you *really* wanna learn?"
   );
   const [content, setContent] = useState("");
   const [open, setOpen] = useState(false);
@@ -46,7 +43,7 @@ export default function Composer(props) {
         }
       }`).then((res) =>
         setPlaceholder(
-          `En réponse à ${res.allPosts.edges[0].node.userByUserId.name}`
+          `In reply to ${res.allPosts.edges[0].node.userByUserId.name}`
         )
       );
     }
@@ -60,14 +57,6 @@ export default function Composer(props) {
     e.preventDefault();
     twetchPost(content, replyTx);
     setContent("");
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
   };
 
   const getColor = () => {
@@ -153,23 +142,13 @@ export default function Composer(props) {
                   disabled={!content || content.length > 256}
                   onClick={handleSubmit}
                 >
-                  Publier
+                  Post
                 </Button>
               </div>
             </Grid>
           </Grid>
         </Grid>
       </form>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity="info"
-          variant="filled"
-          onClick={(e) => e.stopPropagation()}
-        >
-          Transaction réussie ! <Link to={`/t/`}>voir</Link>
-        </Alert>
-      </Snackbar>
     </div>
   );
 }

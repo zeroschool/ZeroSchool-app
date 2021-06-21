@@ -116,7 +116,7 @@ export default function Detail(props) {
                     cursor: "pointer"
                   }}
                 >
-                  Détail du post
+                  Post Detail
                 </div>
                 <div></div>
               </div>
@@ -167,7 +167,7 @@ export default function Detail(props) {
                       onChange={handleChangeOrder}
                     >
                       <MenuItem value={0}>Latest</MenuItem>
-                      <MenuItem value={10}>Earliest</MenuItem>
+                      <MenuItem value={10}>Oldest</MenuItem>
                       <MenuItem value={20}>Economy</MenuItem>
                     </Select>
                   </FormControl>

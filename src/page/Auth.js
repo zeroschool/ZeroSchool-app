@@ -13,7 +13,7 @@ export default function Auth() {
   const TwetchLogin = (e) => {
     // config
     let redirectUrl = `https://${host}/auth/callback`;
-    let appName = "Sapience";
+    let appName = "ZeroSchool";
     e.preventDefault();
     window.location.href = `https://twetch.app/auth/authorize?appName=${appName}&redirectUrl=${redirectUrl}`;
   };
@@ -22,7 +22,7 @@ export default function Auth() {
     // is also in TwetchAction component
     const imbCli = window.location.href.includes("csb")
       ? "d1782f2caa2a71f85576cc0423818882"
-      : "d0363b6333315b5a3f7143e1b5d71181";
+      : "ce4eb6ea41a4f43044dd7e71c08e50b2";
     let getPermissionForCurrentUser = () => {
       return localStorage.token;
     };
@@ -128,7 +128,7 @@ export default function Auth() {
             lineWeight: "36px"
           }}
         >
-          Sapience
+          ZeroSchool
         </p>
         <p
           style={{
@@ -139,7 +139,7 @@ export default function Auth() {
             lineHeight: "20px"
           }}
         >
-          Nouvelle(s) École(s)
+          Ceci n'est pas une école.
         </p>
         <div
           style={{
@@ -165,7 +165,7 @@ export default function Auth() {
             color="primary"
             onClick={TwetchLogin}
           >
-            Se connecter avec Twetch
+            Log in with Twetch
           </Button>
         </div>
         <div
@@ -192,7 +192,7 @@ export default function Auth() {
             color="primary"
             onClick={MBLogin}
           >
-            Se connecter avec MoneyButton
+            Log in with MoneyButton
           </Button>
         </div>
         <div
@@ -219,7 +219,7 @@ export default function Auth() {
             color="primary"
             onClick={RelayXLogin}
           >
-            Se connecter avec RelayX
+            Log in with RelayX
           </Button>
           <div
             style={{
@@ -238,7 +238,7 @@ export default function Auth() {
                   lineHeight: "20px"
                 }}
               >
-                Naviguer anonymement
+                Navigate anonymously
               </p>
             </Link>
           </div>

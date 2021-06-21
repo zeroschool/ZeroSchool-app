@@ -26,15 +26,16 @@ export default function Notifications(props) {
   const [unreadNotifCount, setUnreadNotifCount] = useState();
 
   useEffect(() => {
-    twquery(notifQ).then((res) => {
-      let count = res.me.notificationsCount;
-      //console.log(count);
-      if (count < 1) {
-        setUnreadNotifCount();
-      } else {
-        setUnreadNotifCount(count);
-      }
-    });
+    localStorage.tokenTwetchAuth &&
+      twquery(notifQ).then((res) => {
+        let count = res.me.notificationsCount;
+        //console.log(count);
+        if (count < 1) {
+          setUnreadNotifCount();
+        } else {
+          setUnreadNotifCount(count);
+        }
+      });
   }, []);
 
   return (

@@ -53,7 +53,7 @@ export default function LeftPane() {
               }}
               to="/"
             >
-              Sapience
+              ZeroSchool
             </Link>
           </div>
           <div
@@ -113,7 +113,7 @@ export default function LeftPane() {
                   component={Link}
                   to="/auth"
                 >
-                  Se connecter
+                  Log In
                 </Button>
               </div>
             )}
@@ -159,7 +159,7 @@ export default function LeftPane() {
                     <HomeOutlinedIcon />
                   </ListItemIcon>
                   <ListItemText>
-                    <div style={{ display: "flex" }}>Accueil</div>
+                    <div style={{ display: "flex" }}>Home</div>
                   </ListItemText>
                 </ListItem>
                 <ListItem button component={Link} to="/intents">
@@ -175,7 +175,7 @@ export default function LeftPane() {
                     <EmojiObjectsOutlinedIcon />
                   </ListItemIcon>
                   <ListItemText>
-                    <div style={{ display: "flex" }}>Idées</div>
+                    <div style={{ display: "flex" }}>Ideas</div>
                   </ListItemText>
                 </ListItem>
                 <ListItem button component={Link} to="/projects">
@@ -183,7 +183,7 @@ export default function LeftPane() {
                     <StarsOutlinedIcon />
                   </ListItemIcon>
                   <ListItemText>
-                    <div style={{ display: "flex" }}>Projets</div>
+                    <div style={{ display: "flex" }}>Projects</div>
                   </ListItemText>
                 </ListItem>
               </List>
@@ -223,7 +223,7 @@ export default function LeftPane() {
                 </div>
               }
             >
-              Publier
+              Create Post
             </Button>
           </div>
         </div>
