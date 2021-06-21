@@ -182,7 +182,7 @@ export default function Profile(props) {
                       color="secondary"
                       onClick={logOut}
                     >
-                      Se déconnecter
+                      Log Out
                     </Button>
                   )}
                 </div>
