@@ -140,7 +140,7 @@ export default function Projects(props) {
                   }}
                   onClick={() => history.push("/projects")}
                 >
-                  Projects
+                  Projets
                 </Button>
               </div>
             </Hidden>
@@ -157,9 +157,9 @@ export default function Projects(props) {
                 value={OrderToIndex[orderBy]}
                 onChange={handleChangeOrder}
               >
-                <MenuItem value={0}>Latest</MenuItem>
-                <MenuItem value={10}>Earliest</MenuItem>
-                <MenuItem value={20}>Economy</MenuItem>
+                <MenuItem value={0}>Récents</MenuItem>
+                <MenuItem value={10}>Anciens</MenuItem>
+                <MenuItem value={20}>Économie</MenuItem>
               </Select>
             </FormControl>
           </div>
@@ -195,7 +195,7 @@ export default function Projects(props) {
                 }
                 endMessage={
                   <p style={{ textAlign: "center" }}>
-                    <b>Yay! You have seen it all</b>
+                    <b>Bravo ! Vous avez tout vu !</b>
                   </p>
                 }
               >
