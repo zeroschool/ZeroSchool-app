@@ -142,7 +142,7 @@ export default function Jobs(props) {
                   }}
                   onClick={() => history.push("/")}
                 >
-                  Job Market
+                  Jobs
                 </Button>
               </div>
             </Hidden>

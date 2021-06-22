@@ -214,7 +214,7 @@ export default function AppBar(props) {
                   </ListItemIcon>
                   <ListItemText>
                     <Typography variant="body1" color={isSelected("Jobs")}>
-                      Job Market
+                      Jobs
                     </Typography>
                   </ListItemText>
                 </ListItem>
