@@ -97,7 +97,7 @@ export default function Ideas(props) {
       }}
     >
       <Hidden smDown>
-        <LeftPane />
+        <LeftPane currentTab="Ideas" />
       </Hidden>
       <div
         style={{
@@ -117,7 +117,7 @@ export default function Ideas(props) {
         >
           <div style={{ cursor: "pointer" }} onClick={scrollTop}>
             <Hidden smUp>
-              <AppBar />
+              <AppBar currentTab="Ideas" />
             </Hidden>
             <Hidden xsDown>
               <div

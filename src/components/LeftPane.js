@@ -10,6 +10,7 @@ import {
   ListItemText,
   Typography
 } from "@material-ui/core";
+import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
 import EmojiObjectsOutlinedIcon from "@material-ui/icons/EmojiObjectsOutlined";
@@ -19,7 +20,17 @@ import AddCircleOutlineRoundedIcon from "@material-ui/icons/AddCircleOutlineRoun
 import Notifications from "./Notifications";
 import Messages from "./Messages";
 
-export default function LeftPane() {
+export default function LeftPane(props) {
+  const selected = props.currentTab;
+
+  const isSelected = (tab) => {
+    if (tab === selected) {
+      return "primary";
+    } else {
+      return "initial";
+    }
+  };
+
   return (
     <div
       style={{
@@ -134,10 +145,15 @@ export default function LeftPane() {
                   rel="noreferrer"
                 >
                   <ListItemIcon>
-                    <Notifications />
+                    <Notifications color={isSelected("Notifications")} />
                   </ListItemIcon>
                   <ListItemText>
-                    <div style={{ display: "flex" }}>Notifications</div>
+                    <Typography
+                      variant="body1"
+                      color={isSelected("Notifications")}
+                    >
+                      Notifications
+                    </Typography>
                   </ListItemText>
                 </ListItem>
                 <ListItem
@@ -148,42 +164,62 @@ export default function LeftPane() {
                   rel="noreferrer"
                 >
                   <ListItemIcon>
-                    <Messages />
+                    <Messages color={isSelected("Chat")} />
                   </ListItemIcon>
                   <ListItemText>
-                    <div style={{ display: "flex" }}>Chat</div>
+                    <Typography variant="body1" color={isSelected("Chat")}>
+                      Chat
+                    </Typography>
                   </ListItemText>
                 </ListItem>
                 <ListItem button component={Link} to="/">
                   <ListItemIcon>
-                    <HomeOutlinedIcon />
+                    <HomeOutlinedIcon color={isSelected("Home")} />
                   </ListItemIcon>
                   <ListItemText>
-                    <div style={{ display: "flex" }}>Home</div>
+                    <Typography variant="body1" color={isSelected("Home")}>
+                      Home
+                    </Typography>
                   </ListItemText>
                 </ListItem>
                 <ListItem button component={Link} to="/intents">
                   <ListItemIcon>
-                    <HelpOutlineOutlinedIcon />
+                    <HelpOutlineOutlinedIcon color={isSelected("Questions")} />
                   </ListItemIcon>
                   <ListItemText>
-                    <div style={{ display: "flex" }}>Questions</div>
+                    <Typography variant="body1" color={isSelected("Questions")}>
+                      Questions
+                    </Typography>
                   </ListItemText>
                 </ListItem>
                 <ListItem button component={Link} to="/methods">
                   <ListItemIcon>
-                    <EmojiObjectsOutlinedIcon />
+                    <EmojiObjectsOutlinedIcon color={isSelected("Ideas")} />
                   </ListItemIcon>
                   <ListItemText>
-                    <div style={{ display: "flex" }}>Ideas</div>
+                    <Typography variant="body1" color={isSelected("Ideas")}>
+                      Ideas
+                    </Typography>
                   </ListItemText>
                 </ListItem>
                 <ListItem button component={Link} to="/projects">
                   <ListItemIcon>
-                    <StarsOutlinedIcon />
+                    <StarsOutlinedIcon color={isSelected("Projects")} />
                   </ListItemIcon>
                   <ListItemText>
-                    <div style={{ display: "flex" }}>Projects</div>
+                    <Typography variant="body1" color={isSelected("Projects")}>
+                      Projects
+                    </Typography>
+                  </ListItemText>
+                </ListItem>
+                <ListItem button component={Link} to="/jobs">
+                  <ListItemIcon>
+                    <HourglassEmptyIcon color={isSelected("Jobs")} />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Typography variant="body1" color={isSelected("Jobs")}>
+                      Job Market
+                    </Typography>
                   </ListItemText>
                 </ListItem>
               </List>
