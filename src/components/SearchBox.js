@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { FormControl, OutlinedInput, InputAdornment } from "@material-ui/core";
+import {
+  FormControl,
+  OutlinedInput,
+  InputAdornment,
+  Typography
+} from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 
 export default function SearchBox() {
@@ -57,7 +62,9 @@ export default function SearchBox() {
                   rel="noreferrer"
                   style={{ textDecoration: "none" }}
                 >
-                  Advanced
+                  <Typography color="primary" variant="body1">
+                    Advanced
+                  </Typography>
                 </a>
               </InputAdornment>
             }

@@ -13,12 +13,12 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import { getBoosts } from "../api/boost";
 import { FetchPosts } from "../api/TwetchGraph";
-import StickyButton from "../components/StickyButton";
 import Composer from "../components/Composer";
 import AppBar from "../components/AppBar";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
 import Post from "../components/Post";
+import StickyButton from "../components/StickyButton";
 
 const indexToOrder = {
   0: "CREATED_AT_DESC",
@@ -32,8 +32,8 @@ const OrderToIndex = {
   RANKING_DESC: 20
 };
 
-export default function Projects(props) {
-  const filter = "#projects";
+export default function Jobs(props) {
+  const filter = "/job";
   //console.log(filter);
   const [orderBy, setOrderBy] = useState(indexToOrder[0]);
   //const [filter, setFilter] = useState(props.filter);
@@ -58,14 +58,17 @@ export default function Projects(props) {
     FetchPosts(filter, orderBy, offset).then((res) => {
       //console.log(res);
       setTotalCount(res.allPosts.totalCount);
+      //console.log("total:", totalCount);
       let data = res.allPosts.edges;
       setPostList(postList.concat(data));
+      //console.log("postList:", postList.length);
+      setOffset(offset + 30);
       if (totalCount !== 0 && postList.length >= totalCount) {
+        //console.log("here");
         setHasMore(false);
       }
-
-      setOffset(offset + 30);
     });
+    //console.log("hasMore:", hasMore);
   };
 
   const handleChangeOrder = (event) => {
@@ -97,7 +100,7 @@ export default function Projects(props) {
       }}
     >
       <Hidden smDown>
-        <LeftPane currentTab="Projects" />
+        <LeftPane currentTab="Jobs" />
       </Hidden>
       <div
         style={{
@@ -106,7 +109,6 @@ export default function Projects(props) {
           maxWidth: "600px"
         }}
       >
-        <div></div>
         <div
           className="borders"
           style={{
@@ -117,7 +119,7 @@ export default function Projects(props) {
         >
           <div style={{ cursor: "pointer" }} onClick={scrollTop}>
             <Hidden smUp>
-              <AppBar currentTab="Projects" />
+              <AppBar currentTab="Jobs" />
             </Hidden>
             <Hidden xsDown>
               <div
@@ -138,9 +140,9 @@ export default function Projects(props) {
                     fontWeight: "bold",
                     textDecoration: "none"
                   }}
-                  onClick={() => history.push("/projects")}
+                  onClick={() => history.push("/")}
                 >
-                  Projects
+                  Jobs
                 </Button>
               </div>
             </Hidden>
@@ -199,12 +201,12 @@ export default function Projects(props) {
                   </p>
                 }
               >
-                {postList.map((post) => {
+                {postList.map((post, index) => {
                   return (
                     <Post
                       {...post}
                       boostDiff={getDiff(post.node.transaction)}
-                      key={post.node.transaction}
+                      key={index}
                       tx={post.node.transaction}
                     />
                   );

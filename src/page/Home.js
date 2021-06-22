@@ -100,7 +100,7 @@ export default function Home(props) {
       }}
     >
       <Hidden smDown>
-        <LeftPane />
+        <LeftPane currentTab="Home" />
       </Hidden>
       <div
         style={{
@@ -119,7 +119,7 @@ export default function Home(props) {
         >
           <div style={{ cursor: "pointer" }} onClick={scrollTop}>
             <Hidden smUp>
-              <AppBar />
+              <AppBar currentTab="Home" />
             </Hidden>
             <Hidden xsDown>
               <div
