@@ -15,6 +15,7 @@ import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
 import EmojiObjectsOutlinedIcon from "@material-ui/icons/EmojiObjectsOutlined";
 import StarsOutlinedIcon from "@material-ui/icons/StarsOutlined";
+import AccountBalanceWalletOutlinedIcon from "@material-ui/icons/AccountBalanceWalletOutlined";
 import AddCircleOutlineRoundedIcon from "@material-ui/icons/AddCircleOutlineRounded";
 
 import Notifications from "./Notifications";
@@ -209,6 +210,18 @@ export default function LeftPane(props) {
                   <ListItemText>
                     <Typography variant="body1" color={isSelected("Projects")}>
                       Projects
+                    </Typography>
+                  </ListItemText>
+                </ListItem>
+                <ListItem button component={Link} to="/wallet">
+                  <ListItemIcon>
+                    <AccountBalanceWalletOutlinedIcon
+                      color={isSelected("Wallet")}
+                    />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Typography variant="body1" color={isSelected("Wallet")}>
+                      Wallet
                     </Typography>
                   </ListItemText>
                 </ListItem>
