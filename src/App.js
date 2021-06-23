@@ -15,6 +15,8 @@ import Profile from "./page/Profile";
 import Search from "./page/Search";
 import Detail from "./page/Detail";
 import Wallet from "./page/Wallet";
+import Receive from "./page/Receive";
+import Send from "./page/Send";
 import Welcome from "./page/Welcome";
 import "./styles.css";
 
@@ -35,6 +37,8 @@ export default function App() {
         <Route exact path="/projects" component={Projects} />
         <Route exact path="/jobs" component={Jobs} />
         <Route exact path="/wallet" component={Wallet} />
+        <Route exact path="/wallet/send" component={Send} />
+        <Route exact path="/wallet/receive" component={Receive} />
         <Route
           exact
           path="/compose/:id"
