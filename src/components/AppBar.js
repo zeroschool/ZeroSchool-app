@@ -246,13 +246,18 @@ export default function AppBar(props) {
             {localStorage.getItem("tokenTwetchAuth") ? (
               <Avatar
                 src={localStorage.getItem("icon")}
-                alt={`Avatar de ${localStorage.getItem("name")}`}
+                alt={`${localStorage.getItem("name")}`}
               />
             ) : (
               <MenuOutlinedIcon />
             )}
           </IconButton>
-          <IconButton component={Link} to="/search/?searchTerm=" d>
+          <IconButton
+            style={{ height: "36px", width: "36px" }}
+            component={Link}
+            to="/search/?searchTerm="
+            d
+          >
             <SearchIcon color="primary" />
           </IconButton>
         </div>
@@ -278,6 +283,7 @@ export default function AppBar(props) {
           ) : (
             <div>
               <IconButton
+                style={{ height: "36px", width: "36px" }}
                 href="https://twetch.app/notifications"
                 target="_blank"
                 rel="noreferrer"
@@ -285,6 +291,7 @@ export default function AppBar(props) {
                 <Notifications color="primary" />
               </IconButton>
               <IconButton
+                style={{ height: "36px", width: "36px" }}
                 href="https://twetch.app/chat/home"
                 target="_blank"
                 rel="noreferrer"

@@ -27,7 +27,7 @@ export default function LeftPane(props) {
     if (tab === selected) {
       return "primary";
     } else {
-      return "initial";
+      return;
     }
   };
 
