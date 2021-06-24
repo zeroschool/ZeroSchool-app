@@ -8,7 +8,7 @@ import Home from "./Home";
 
 const axios = require("axios");
 
-export default function AuthCallBack() {
+export default function TwetchCallBack() {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState();
   const history = useHistory();
