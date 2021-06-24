@@ -5,7 +5,7 @@ import { CircularProgress } from "@material-ui/core";
 
 import { userData } from "../api/TwetchGraph";
 import Home from "./Home";
-import { handCashConnect, twLogin } from "./Auth";
+import { handCashConnect, saveWallet, twLogin } from "./Auth";
 
 const axios = require("axios");
 
@@ -14,7 +14,10 @@ export default function HandCashCallBack() {
   let params = new URLSearchParams(document.location.search.substring(1));
   let token = params.get("authToken");
   const account = handCashConnect.getAccountFromAuthToken(token);
-  //account.profile.getCurrentProfile().then((res) => console.log(res));
+  const currentProfile = account.profile
+    .getCurrentProfile()
+    .then((res) => saveWallet(res.publicProfile.paymail, "handcash"));
+
   fetch("https://auth.twetch.app/api/v1/challenge", { method: "get" })
     .then((res) => {
       return res.json();

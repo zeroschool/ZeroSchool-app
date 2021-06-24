@@ -270,7 +270,7 @@ export default function Auth() {
   );
 }
 
-const saveWallet = (paymail, wallet) => {
+export const saveWallet = (paymail, wallet) => {
   localStorage.setItem("paymail", paymail);
   localStorage.setItem("wallet", wallet);
 };
