@@ -3,7 +3,8 @@ import { Switch, Route } from "react-router-dom";
 
 import { getABI } from "./api/TwetchActions";
 
-import AuthCallback from "./page/AuthCallBack";
+import HandCashCallBack from "./page/HandCashCallBack";
+import TwetchCallback from "./page/TwetchCallBack";
 import Auth from "./page/Auth";
 import Compose from "./page/Compose";
 import Home from "./page/Home";
@@ -26,7 +27,15 @@ export default function App() {
     <div className="App">
       <Switch>
         <Route exact path="/auth" component={Auth} />
-        <Route exact path="/auth/callback" render={() => <AuthCallback />} />
+        <Route
+          exact
+          path="/auth/callback/twetch"
+          render={() => <TwetchCallback />}
+        />
+        <Route
+          path="/auth/callback/handcash"
+          render={() => <HandCashCallBack />}
+        />
         <Route exact path="/welcome" component={Welcome} />
         <Route exact path="/" component={Home} />
         <Route exact path="/intents" component={Questions} />

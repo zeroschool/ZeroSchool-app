@@ -5,17 +5,26 @@ import { Button } from "@material-ui/core";
 
 import { twquery } from "../api/TwetchGraph";
 
+const { HandCashConnect } = require("@handcash/handcash-connect");
+export const handCashConnect = new HandCashConnect("60d35d1304898f0b46b7da39");
+// Use this field to redirect the user to the HandCash authorization screen.
+const redirectionLoginUrl = handCashConnect.getRedirectionUrl();
+
 export default function Auth() {
   const history = useHistory();
   const host = window.location.host;
-  console.log(host);
 
   const TwetchLogin = (e) => {
     // config
-    let redirectUrl = `https://${host}/auth/callback`;
+    let redirectUrl = `https://${host}/auth/callback/twetch`;
     let appName = "ZeroSchool";
     e.preventDefault();
     window.location.href = `https://twetch.app/auth/authorize?appName=${appName}&redirectUrl=${redirectUrl}`;
+  };
+
+  const HandCashLogin = (e) => {
+    e.preventDefault();
+    window.location.href = redirectionLoginUrl;
   };
 
   const MBLogin = async () => {
@@ -229,6 +238,18 @@ export default function Auth() {
               maxWidth: "300px"
             }}
           >
+            <div id="connectButton" onClick={HandCashLogin}>
+              Connect with HandCash
+            </div>
+          </div>
+          <div
+            style={{
+              width: "100%",
+              margin: "20px auto 0 auto",
+              display: "block",
+              maxWidth: "300px"
+            }}
+          >
             <Link to="/">
               <p
                 style={{
@@ -254,7 +275,7 @@ const saveWallet = (paymail, wallet) => {
   localStorage.setItem("wallet", wallet);
 };
 
-const twLogin = (address, message, signature, callback) => {
+export const twLogin = (address, message, signature, callback) => {
   let obj = { address, message, signature };
   fetch("https://auth.twetch.app/api/v1/authenticate", {
     method: "post",
@@ -265,9 +286,10 @@ const twLogin = (address, message, signature, callback) => {
       return res.json();
     })
     .then(async (resp) => {
+      //console.log(resp);
       localStorage.setItem("tokenTwetchAuth", resp.token);
       let { me } = await twquery(`{ me { id icon name } }`);
-      console.log({ me });
+      //console.log({ me });
       localStorage.setItem("id", me.id);
       localStorage.setItem("icon", me.icon);
       localStorage.setItem("name", me.name);
