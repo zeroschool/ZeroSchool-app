@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { RelayOne } from "relayx";
 import { Button } from "@material-ui/core";
 
-import { twquery } from "../api/TwetchGraph";
+import { twquery } from "../../api/TwetchGraph";
 
 export default function Auth() {
   const history = useHistory();
