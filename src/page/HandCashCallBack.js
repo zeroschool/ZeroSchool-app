@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { PublicKey } from "bsv";
 import { CircularProgress } from "@material-ui/core";
 
-import { userData } from "../api/TwetchGraph";
-import Home from "./Home";
 import { handCashConnect, saveWallet, twLogin } from "./Auth";
-
-const axios = require("axios");
 
 export default function HandCashCallBack() {
   const history = useHistory();
   let params = new URLSearchParams(document.location.search.substring(1));
   let token = params.get("authToken");
+
   const account = handCashConnect.getAccountFromAuthToken(token);
-  const currentProfile = account.profile
+  account.profile
     .getCurrentProfile()
     .then((res) => saveWallet(res.publicProfile.paymail, "handcash"));
 
@@ -40,6 +36,7 @@ export default function HandCashCallBack() {
         console.log(e);
       }
     });
+
   return (
     <div
       style={{

@@ -19,6 +19,7 @@ import EmojiObjectsOutlinedIcon from "@material-ui/icons/EmojiObjectsOutlined";
 import StarsOutlinedIcon from "@material-ui/icons/StarsOutlined";
 import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
 import SearchIcon from "@material-ui/icons/Search";
+import SettingsIcon from "@material-ui/icons/Settings";
 
 import Messages from "./Messages";
 import Notifications from "./Notifications";
@@ -215,6 +216,16 @@ export default function AppBar(props) {
                   <ListItemText>
                     <Typography variant="body1" color={isSelected("Jobs")}>
                       Jobs
+                    </Typography>
+                  </ListItemText>
+                </ListItem>
+                <ListItem button component={Link} to="/settings">
+                  <ListItemIcon>
+                    <SettingsIcon color={isSelected("Settings")} />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Typography variant="body1" color={isSelected("Settings")}>
+                      Settings
                     </Typography>
                   </ListItemText>
                 </ListItem>
