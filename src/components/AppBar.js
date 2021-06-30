@@ -267,7 +267,6 @@ export default function AppBar(props) {
             style={{ height: "36px", width: "36px" }}
             component={Link}
             to="/search/?searchTerm="
-            d
           >
             <SearchIcon color="primary" />
           </IconButton>

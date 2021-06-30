@@ -51,7 +51,7 @@ export default function Detail(props) {
         setLoading(false);
       });
     });
-    getBoosts().then((res) => setBoosts(res));
+    //getBoosts().then((res) => setBoosts(res));
   }, [txId, orderRepliesBy]);
 
   const handleChangeOrder = (event) => {

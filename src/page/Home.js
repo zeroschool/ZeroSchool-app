@@ -51,7 +51,7 @@ export default function Home(props) {
     setLoading(true);
     fetchMore();
     setLoading(false);
-    getBoosts().then((res) => setBoosts(res));
+    //getBoosts().then((res) => setBoosts(res));
   }, [orderBy, filter]);
 
   const fetchMore = () => {
@@ -177,6 +177,13 @@ export default function Home(props) {
             >
               <Hidden xsDown>
                 <Composer />
+                <div
+                  style={{
+                    width: "100%",
+                    height: "8px",
+                    backgroundColor: "#F2F2F2"
+                  }}
+                />
               </Hidden>
               <InfiniteScroll
                 dataLength={postList.length}

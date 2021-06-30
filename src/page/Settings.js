@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
-  Button,
-  CircularProgress,
   FormControl,
   Hidden,
   MenuItem,
@@ -10,17 +8,9 @@ import {
   Switch,
   Typography
 } from "@material-ui/core";
-import { use100vh } from "react-div-100vh";
-import InfiniteScroll from "react-infinite-scroll-component";
-
-import { getBoosts } from "../api/boost";
-import { FetchPosts } from "../api/TwetchGraph";
-import Composer from "../components/Composer";
 import AppBar from "../components/AppBar";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
-import Post from "../components/Post";
-import StickyButton from "../components/StickyButton";
 
 const indexToWallet = {
   0: "moneybutton",

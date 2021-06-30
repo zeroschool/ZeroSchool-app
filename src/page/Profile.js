@@ -63,7 +63,7 @@ export default function Profile(props) {
       setLoading(false);
     });
     fetchMore();
-    getBoosts().then((res) => setBoosts(res));
+    //getBoosts().then((res) => setBoosts(res));
   }, [orderBy, userId]);
 
   const handleChangeOrder = (event) => {
@@ -72,13 +72,6 @@ export default function Profile(props) {
     setHasMore(true);
     setOrderBy(indexToOrder[event.target.value]);
     setOffset(0);
-  };
-
-  const logOut = (e) => {
-    e.preventDefault();
-    localStorage.clear();
-    window.alert("Logged Out!");
-    history.push("/auth");
   };
 
   const getDiff = (tx) => {
@@ -175,17 +168,6 @@ export default function Profile(props) {
                   src={userData.icon}
                   style={{ height: "64px", width: "64px" }}
                 />
-                <div>
-                  {userId === localStorage.id && (
-                    <Button
-                      variant="outlined"
-                      color="secondary"
-                      onClick={logOut}
-                    >
-                      Log Out
-                    </Button>
-                  )}
-                </div>
               </div>
               <div
                 style={{
