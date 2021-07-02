@@ -228,7 +228,7 @@ export default function LeftPane(props) {
                     <LockOutlinedIcon color={isSelected("Features")} />
                   </ListItemIcon>
                   <ListItemText>
-                    <Typography variant="body1" color={isSelected("Settings")}>
+                    <Typography variant="body1" color={isSelected("Features")}>
                       Features
                     </Typography>
                   </ListItemText>

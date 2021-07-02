@@ -225,7 +225,7 @@ export default function AppBar(props) {
                     <LockOutlinedIcon color={isSelected("Features")} />
                   </ListItemIcon>
                   <ListItemText>
-                    <Typography variant="body1" color={isSelected("Settings")}>
+                    <Typography variant="body1" color={isSelected("Features")}>
                       Features
                     </Typography>
                   </ListItemText>
