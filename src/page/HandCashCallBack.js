@@ -8,6 +8,7 @@ export default function HandCashCallBack() {
   const history = useHistory();
   let params = new URLSearchParams(document.location.search.substring(1));
   let token = params.get("authToken");
+  localStorage.setItem("token", token);
 
   const account = handCashConnect.getAccountFromAuthToken(token);
   account.profile

@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { RelayOne } from "relayx";
 import { Button } from "@material-ui/core";
 
 import { twquery } from "../api/TwetchGraph";
@@ -9,6 +8,10 @@ const { HandCashConnect } = require("@handcash/handcash-connect");
 export const handCashConnect = new HandCashConnect("60d35d1304898f0b46b7da39");
 // Use this field to redirect the user to the HandCash authorization screen.
 const redirectionLoginUrl = handCashConnect.getRedirectionUrl();
+
+export const imbCli = window.location.href.includes("csb")
+  ? "d1782f2caa2a71f85576cc0423818882"
+  : "ce4eb6ea41a4f43044dd7e71c08e50b2";
 
 export default function Auth() {
   const history = useHistory();
@@ -29,9 +32,7 @@ export default function Auth() {
 
   const MBLogin = async () => {
     // is also in TwetchAction component
-    const imbCli = window.location.href.includes("csb")
-      ? "d1782f2caa2a71f85576cc0423818882"
-      : "ce4eb6ea41a4f43044dd7e71c08e50b2";
+
     let getPermissionForCurrentUser = () => {
       return localStorage.token;
     };
@@ -75,19 +76,20 @@ export default function Auth() {
     }
   };
   const RelayXLogin = async () => {
-    let token = await RelayOne.authBeta({ withGrant: true }),
+    let token = await window.relayone.authBeta({ withGrant: true }),
       res;
     localStorage.setItem("token", token);
     let [payload, signature] = token.split(".");
-    console.log(signature);
+    //console.log(signature);
     const data = JSON.parse(atob(payload));
+
     fetch("https://auth.twetch.app/api/v1/challenge", { method: "get" })
       .then((res) => {
         return res.json();
       })
       .then(async (resp) => {
         try {
-          res = await RelayOne.sign(resp.message);
+          res = await window.relayone.sign(resp.message);
           const publicKey = window.bsv.PublicKey.fromHex(data.pubkey);
           const signAddr = window.bsv.Address.fromPublicKey(
             publicKey
@@ -101,7 +103,7 @@ export default function Auth() {
             }
           }
         } catch (e) {
-          alert(e);
+          console.log(e);
         }
       });
   };

@@ -9,11 +9,14 @@ import {
   Typography
 } from "@material-ui/core";
 
+import { imbCli } from "../page/Auth";
+import { handCashConnect } from "../page/Auth";
 import { BSVABI } from "../utils/BSVABI";
 import { twquery } from "../api/TwetchGraph";
 import {
   arrToScript,
   digestMessage,
+  getABI,
   getPayees,
   publishRequest
 } from "../api/TwetchActions";
@@ -154,37 +157,43 @@ export default function Composer(props) {
 }
 
 const twetchPost = async (text, replyTx) => {
+  const action = "twetch/post@0.0.1";
+  let abi;
   if (!localStorage.tokenTwetchAuth) {
     alert("Please login!");
     return;
   }
+  //Construct Twetch ABI
+  if (localStorage.abi) {
+    abi = new BSVABI(JSON.parse(localStorage.getItem("abi")), { action });
+  } else {
+    abi = await getABI();
+    localStorage.setItem("abi", JSON.stringify(abi));
+  }
+
   let content = text;
   let hash = window.location.hash;
   if (!hash) {
     hash = "$zeroschool";
   }
   content += ` ${hash}`;
-  //console.log(boost);
-  // Loading dlg
-  let action = "twetch/post@0.0.1";
-  let obj;
-  if (action === "twetch/post@0.0.1") {
-    obj = {
-      bContent: content,
-      mapReply: replyTx
-    };
-  } else {
-    obj = { postTransaction: content };
-  }
-  const abi = new BSVABI(JSON.parse(localStorage.getItem("abi")), { action });
+
+  let obj = {
+    bContent: content,
+    mapReply: replyTx
+  };
+
   abi.fromObject(obj);
+
   let payees = await getPayees({ args: abi.toArray(), action });
   await abi.replace({ "#{invoice}": () => payees.invoice });
+
   let arg = abi.action.args.find((e) => e.type === "Signature");
   const ab = abi
     .toArray()
     .slice(arg.messageStartIndex || 0, arg.messageEndIndex + 1);
   const contentHash = await digestMessage(ab);
+
   let outputScript = window.bsv.Script.buildSafeDataOut(abi.toArray()).toASM();
   let outputs = { currency: "BSV", amount: 0, script: outputScript };
   let relayOutputs = {
@@ -203,12 +212,120 @@ const twetchPost = async (text, replyTx) => {
       name: "mySignature",
       method: "sign",
       data: contentHash,
-      dataEncoding: "utf8",
+      dataEncoding: "hex",
       key: "identity",
       algorithm: "bitcoin-signed-message"
     }
   ];
-  window.twetchPay
+  if (localStorage.wallet === "handcash") {
+    const account = handCashConnect.getAccountFromAuthToken(localStorage.token);
+    const currentProfile = await account.profile.getCurrentProfile();
+    let res = await fetch(
+      `https://api.polynym.io/getAddress/${currentProfile.publicProfile.paymail}`
+    );
+    let jres = await res.json();
+    const myAddress = jres.address;
+    const { signature } = await account.profile.signData({
+      value: contentHash,
+      format: "utf-8"
+    });
+    await abi.replace({ "#{mySignature}": () => signature });
+    await abi.replace({ "#{myAddress}": () => myAddress });
+    let message = arrToScript(abi.args);
+    //console.log(message);
+    const paymentParameters = {
+      appAction: "ZeroSchool post",
+      payments: payees.payees.map((p) => {
+        return {
+          destination: p.to,
+          currencyCode: p.currency,
+          sendAmount: p.amount
+        };
+      }),
+      attachment: { format: "hex", value: message }
+    };
+    //console.log(paymentParameters);
+    let payment = await account.wallet
+      .pay(paymentParameters)
+      .catch((err) => console.log(err));
+    if (payment) {
+      console.log(payment);
+      await publishRequest({
+        signed_raw_tx: payment.rawTx,
+        action: action,
+        broadcast: true,
+        invoice: payees.invoice,
+        payParams: {
+          tweetFromTwetch: false,
+          hideTweetFromTwetchLink: false
+        }
+      });
+    }
+  } else if (localStorage.wallet === "moneybutton") {
+    let outputs = [{ currency: "BSV", amount: 0, script: outputScript }];
+    outputs = outputs.concat(payees.payees);
+    console.log(outputs);
+    let cryptoOperations = [
+      { name: "myAddress", method: "address", key: "identity" },
+      {
+        name: "mySignature",
+        method: "sign",
+        data: contentHash,
+        dataEncoding: "utf8",
+        key: "identity",
+        algorithm: "bitcoin-signed-message"
+      }
+    ];
+    let getPermissionForCurrentUser = () => {
+      return localStorage.token;
+    };
+    const imb = new window.moneyButton.IMB({
+      clientIdentifier: imbCli,
+      permission: getPermissionForCurrentUser(),
+      onNewPermissionGranted: (token) => localStorage.setItem("token", token)
+    });
+    imb.swipe({
+      outputs,
+      cryptoOperations,
+      onPayment: async (payment) => {
+        await publishRequest({
+          signed_raw_tx: payment.rawtx,
+          action: action,
+          broadcast: true,
+          invoice: payees.invoice,
+          payParams: {
+            tweetFromTwetch: false,
+            hideTweetFromTwetchLink: false
+          }
+        });
+      },
+      onError: (err) => console.log(err)
+    });
+  } else if (localStorage.wallet === "relayx") {
+    let outputs = {
+      currency: "BSV",
+      amount: 0,
+      signatures: ["TWETCH-AIP"],
+      script: arrToScript(abi.args.slice(0, abi.args.length - 5))
+    };
+    outputs = outputs.concat(payees.payees);
+    let res = await window.relayone.send({ outputs });
+    if (res.txid) {
+      await publishRequest({
+        signed_raw_tx: res.rawTx,
+        action: action,
+        broadcast: true,
+        invoice: payees.invoice,
+        payParams: {
+          tweetFromTwetch: false,
+          hideTweetFromTwetchLink: false
+        }
+      });
+    } else {
+      console.log("Failed to broadcast");
+    }
+  }
+  /* window.twetchPay
     .pay({
       //wallets: ["moneybutton", "relayx"],
       outputs: outputs,
@@ -253,7 +370,7 @@ const twetchPost = async (text, replyTx) => {
     })
     .then((res) => {
       console.log(res);
-    });
+    }); */
 
   //await build(content, "twetch/post@0.0.1", replyTx);
   //let res = await send("twetch/post@0.0.1");

@@ -1,5 +1,3 @@
-import { RelayOne } from "relayx";
-
 import { BSVABI } from "../utils/BSVABI";
 
 export const getABI = async () => {
