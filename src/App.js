@@ -11,6 +11,7 @@ import Home from "./page/Home";
 import Questions from "./page/Questions";
 import Ideas from "./page/Ideas";
 import Jobs from "./page/Jobs";
+import Features from "./page/Features";
 import Projects from "./page/Projects";
 import Profile from "./page/Profile";
 import Search from "./page/Search";
@@ -42,6 +43,7 @@ export default function App() {
         <Route exact path="/intents" component={Questions} />
         <Route exact path="/methods" component={Ideas} />
         <Route exact path="/projects" component={Projects} />
+        <Route exact path="/features" component={Features} />
         <Route exact path="/jobs" component={Jobs} />
         <Route exact path="/settings" component={Settings} />
         <Route
