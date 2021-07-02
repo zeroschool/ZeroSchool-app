@@ -92,6 +92,7 @@ export default function Settings(props) {
             </Typography>
             <div style={{ flexGrow: 1 }} />
             <Switch
+              color="primary"
               style={{
                 float: "right"
               }}
@@ -119,6 +120,7 @@ export default function Settings(props) {
             </Typography>
             <div style={{ flexGrow: 1 }} />
             <Switch
+              color="primary"
               style={{
                 float: "right"
               }}
