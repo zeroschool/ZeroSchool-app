@@ -25,12 +25,22 @@ const walletToIndex = {
 
 export default function Settings(props) {
   const [wallet, setWallet] = useState(walletToIndex[localStorage.wallet]);
+  const [isOneClick, setIsOneClick] = useState(
+    localStorage.isOneClick === "true" ? true : false || false
+  );
   const history = useHistory();
 
   const handleChangeWallet = (e) => {
     e.preventDefault();
     setWallet(e.target.value);
     localStorage.setItem("wallet", indexToWallet[e.target.value]);
+  };
+
+  const handleChange1Click = (e) => {
+    e.preventDefault();
+    setIsOneClick(e.target.checked);
+    localStorage.setItem("isOneClick", !isOneClick);
+    console.log(localStorage.isOneClick);
   };
 
   const logOut = (e) => {
@@ -120,6 +130,8 @@ export default function Settings(props) {
             </Typography>
             <div style={{ flexGrow: 1 }} />
             <Switch
+              checked={isOneClick}
+              onChange={handleChange1Click}
               color="primary"
               style={{
                 float: "right"

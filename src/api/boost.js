@@ -85,7 +85,7 @@ export async function sendBoostTransaction(content, diff, category) {
       onError: (err) => console.log(err)
     });
   } else if (localStorage.wallet === "relayx") {
-    let res = await RelayOne.send({ output });
+    let res = await window.relayone.send({ output });
     if (res.txid) {
       console.log("payment completed", res);
       const boostRequestSubmit = await boost.Graph().submitBoostJob(res.rawtx);
