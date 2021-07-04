@@ -176,7 +176,7 @@ const twetchPost = async (text, replyTx) => {
   if (!hash) {
     hash = "$zeroschool";
   }
-  content += ` ${hash}`;
+  //content += ` ${hash}`;
 
   let obj = {
     bContent: content,
@@ -194,29 +194,6 @@ const twetchPost = async (text, replyTx) => {
     .slice(arg.messageStartIndex || 0, arg.messageEndIndex + 1);
   const contentHash = await digestMessage(ab);
 
-  let outputScript = window.bsv.Script.buildSafeDataOut(abi.toArray()).toASM();
-  let outputs = { currency: "BSV", amount: 0, script: outputScript };
-  let relayOutputs = {
-    currency: "BSV",
-    amount: 0,
-    signatures: ["TWETCH-AIP"],
-    script: arrToScript(abi.args.slice(0, abi.args.length - 5))
-  };
-  outputs = [outputs].concat(payees.payees);
-  //console.log("mb", mbOutputs);
-  relayOutputs = [relayOutputs].concat(payees.payees);
-  //console.log("relay", relayOutputs);
-  let cryptoOperations = [
-    { name: "myAddress", method: "address", key: "identity" },
-    {
-      name: "mySignature",
-      method: "sign",
-      data: contentHash,
-      dataEncoding: "hex",
-      key: "identity",
-      algorithm: "bitcoin-signed-message"
-    }
-  ];
   if (localStorage.wallet === "handcash") {
     const account = handCashConnect.getAccountFromAuthToken(localStorage.token);
     const currentProfile = await account.profile.getCurrentProfile();
@@ -225,14 +202,17 @@ const twetchPost = async (text, replyTx) => {
     );
     let jres = await res.json();
     const myAddress = jres.address;
+
     const { signature } = await account.profile.signData({
       value: contentHash,
       format: "utf-8"
     });
-    await abi.replace({ "#{mySignature}": () => signature });
+    console.log(signature);
     await abi.replace({ "#{myAddress}": () => myAddress });
-    let message = arrToScript(abi.args);
-    //console.log(message);
+    await abi.replace({ "#{mySignature}": () => signature });
+
+    let outputScript = abi.args.toString("hex");
+    outputScript = Buffer.from(outputScript).toString("hex");
     const paymentParameters = {
       appAction: "ZeroSchool post",
       payments: payees.payees.map((p) => {
@@ -242,16 +222,17 @@ const twetchPost = async (text, replyTx) => {
           sendAmount: p.amount
         };
       }),
-      attachment: { format: "hex", value: message }
+      attachment: { format: "hex", value: outputScript }
     };
-    //console.log(paymentParameters);
+    console.log(paymentParameters);
     let payment = await account.wallet
       .pay(paymentParameters)
       .catch((err) => console.log(err));
     if (payment) {
       console.log(payment);
+      console.log(payment.rawTransactionHex);
       await publishRequest({
-        signed_raw_tx: payment.rawTx,
+        signed_raw_tx: payment.rawTransactionHex,
         action: action,
         broadcast: true,
         invoice: payees.invoice,
@@ -262,6 +243,9 @@ const twetchPost = async (text, replyTx) => {
       });
     }
   } else if (localStorage.wallet === "moneybutton") {
+    let outputScript = window.bsv.Script.buildSafeDataOut(
+      abi.toArray()
+    ).toASM();
     let outputs = [{ currency: "BSV", amount: 0, script: outputScript }];
     outputs = outputs.concat(payees.payees);
     console.log(outputs);
