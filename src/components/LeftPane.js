@@ -20,6 +20,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 
 import Notifications from "./Notifications";
 import Messages from "./Messages";
+import { LinkOffSharp } from "@material-ui/icons";
 
 export default function LeftPane(props) {
   const selected = props.currentTab;
@@ -138,13 +139,7 @@ export default function LeftPane(props) {
           >
             <div>
               <List style={{ marginLeft: "-16px" }}>
-                <ListItem
-                  button
-                  component="a"
-                  href="https://twetch.app/notifications"
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <ListItem button component={Link} to="/notifications">
                   <ListItemIcon>
                     <Notifications color={isSelected("Notifications")} />
                   </ListItemIcon>

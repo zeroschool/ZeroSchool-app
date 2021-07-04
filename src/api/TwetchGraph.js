@@ -93,6 +93,39 @@ export const userData = `{
   }
   `;
 
+export function FetchNotifications(offset) {
+  //console.log(filter);
+  return twquery(`{
+    me {
+      notificationsByUserId(
+        first: 30
+        offset: ${offset}
+        orderBy: ID_DESC
+        filter: {actorUserId: {distinctFrom: "${localStorage.id}"}}
+      ) {
+        nodes {
+          actorUserId
+          createdAt
+          description
+          id
+          nodeId
+          postId
+          price
+          priceSats
+          type
+          url
+          userId
+          userByActorUserId {
+            icon
+            name
+          }
+        }
+        totalCount
+      }
+    }
+  }`);
+}
+
 export function FetchPosts(filter, order, offset) {
   //console.log(filter);
   return twquery(`{

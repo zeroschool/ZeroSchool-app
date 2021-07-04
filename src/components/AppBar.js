@@ -305,9 +305,8 @@ export default function AppBar(props) {
             <div>
               <IconButton
                 style={{ height: "36px", width: "36px" }}
-                href="https://twetch.app/notifications"
-                target="_blank"
-                rel="noreferrer"
+                component={Link}
+                to="/notifications"
               >
                 <Notifications color="primary" />
               </IconButton>

@@ -6,6 +6,7 @@ import { getABI } from "./api/TwetchActions";
 import HandCashCallBack from "./page/HandCashCallBack";
 import TwetchCallback from "./page/TwetchCallBack";
 import Auth from "./page/Auth";
+import Notifications from "./page/Notifications";
 import Compose from "./page/Compose";
 import Home from "./page/Home";
 import Questions from "./page/Questions";
@@ -39,6 +40,7 @@ export default function App() {
           render={() => <HandCashCallBack />}
         />
         <Route exact path="/welcome" component={Welcome} />
+        <Route exact path="/notifications" component={Notifications} />
         <Route exact path="/" component={Home} />
         <Route exact path="/intents" component={Questions} />
         <Route exact path="/methods" component={Ideas} />
