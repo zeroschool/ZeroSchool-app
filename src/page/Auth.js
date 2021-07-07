@@ -1,28 +1,38 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { RelayOne } from "relayx";
 import { Button } from "@material-ui/core";
 
 import { twquery } from "../api/TwetchGraph";
 
+const { HandCashConnect } = require("@handcash/handcash-connect");
+export const handCashConnect = new HandCashConnect("60d35d1304898f0b46b7da39");
+// Use this field to redirect the user to the HandCash authorization screen.
+const redirectionLoginUrl = handCashConnect.getRedirectionUrl();
+
+export const imbCli = window.location.href.includes("csb")
+  ? "d1782f2caa2a71f85576cc0423818882"
+  : "ce4eb6ea41a4f43044dd7e71c08e50b2";
+
 export default function Auth() {
   const history = useHistory();
   const host = window.location.host;
-  console.log(host);
 
   const TwetchLogin = (e) => {
     // config
-    let redirectUrl = `https://${host}/auth/callback`;
+    let redirectUrl = `https://${host}/auth/callback/twetch`;
     let appName = "ZeroSchool";
     e.preventDefault();
     window.location.href = `https://twetch.app/auth/authorize?appName=${appName}&redirectUrl=${redirectUrl}`;
   };
 
+  const HandCashLogin = (e) => {
+    e.preventDefault();
+    window.location.href = redirectionLoginUrl;
+  };
+
   const MBLogin = async () => {
     // is also in TwetchAction component
-    const imbCli = window.location.href.includes("csb")
-      ? "d1782f2caa2a71f85576cc0423818882"
-      : "ce4eb6ea41a4f43044dd7e71c08e50b2";
+
     let getPermissionForCurrentUser = () => {
       return localStorage.token;
     };
@@ -66,19 +76,20 @@ export default function Auth() {
     }
   };
   const RelayXLogin = async () => {
-    let token = await RelayOne.authBeta({ withGrant: true }),
+    let token = await window.relayone.authBeta({ withGrant: true }),
       res;
     localStorage.setItem("token", token);
     let [payload, signature] = token.split(".");
-    console.log(signature);
+    //console.log(signature);
     const data = JSON.parse(atob(payload));
+
     fetch("https://auth.twetch.app/api/v1/challenge", { method: "get" })
       .then((res) => {
         return res.json();
       })
       .then(async (resp) => {
         try {
-          res = await RelayOne.sign(resp.message);
+          res = await window.relayone.sign(resp.message);
           const publicKey = window.bsv.PublicKey.fromHex(data.pubkey);
           const signAddr = window.bsv.Address.fromPublicKey(
             publicKey
@@ -92,7 +103,7 @@ export default function Auth() {
             }
           }
         } catch (e) {
-          alert(e);
+          console.log(e);
         }
       });
   };
@@ -229,6 +240,18 @@ export default function Auth() {
               maxWidth: "300px"
             }}
           >
+            <div id="connectButton" onClick={HandCashLogin}>
+              Connect with HandCash
+            </div>
+          </div>
+          <div
+            style={{
+              width: "100%",
+              margin: "20px auto 0 auto",
+              display: "block",
+              maxWidth: "300px"
+            }}
+          >
             <Link to="/">
               <p
                 style={{
@@ -249,12 +272,12 @@ export default function Auth() {
   );
 }
 
-const saveWallet = (paymail, wallet) => {
+export const saveWallet = (paymail, wallet) => {
   localStorage.setItem("paymail", paymail);
   localStorage.setItem("wallet", wallet);
 };
 
-const twLogin = (address, message, signature, callback) => {
+export const twLogin = (address, message, signature, callback) => {
   let obj = { address, message, signature };
   fetch("https://auth.twetch.app/api/v1/authenticate", {
     method: "post",
@@ -265,9 +288,10 @@ const twLogin = (address, message, signature, callback) => {
       return res.json();
     })
     .then(async (resp) => {
+      //console.log(resp);
       localStorage.setItem("tokenTwetchAuth", resp.token);
       let { me } = await twquery(`{ me { id icon name } }`);
-      console.log({ me });
+      //console.log({ me });
       localStorage.setItem("id", me.id);
       localStorage.setItem("icon", me.icon);
       localStorage.setItem("name", me.name);

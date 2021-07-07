@@ -23,7 +23,7 @@ export default function Compose(props) {
         setPostData(data.allPosts.edges);
       });
     }
-    getBoosts().then((res) => setBoosts(res));
+    //getBoosts().then((res) => setBoosts(res));
   }, [txId]);
 
   const getDiff = (tx) => {

@@ -66,7 +66,7 @@ export default function Search(props) {
       setLoading(true);
       fetchMore();
       setLoading(false);
-      getBoosts().then((res) => setBoosts(res));
+      //getBoosts().then((res) => setBoosts(res));
     }
   }, [orderBy, filter]);
 

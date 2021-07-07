@@ -2,23 +2,33 @@ import React, { useEffect, useState } from "react";
 import {
   Avatar,
   Button,
+  Drawer,
   Grid,
+  FormControl,
+  MenuItem,
+  Select,
   InputAdornment,
   LinearProgress,
   TextField,
   Typography
 } from "@material-ui/core";
-
+import { Link } from "react-router-dom";
+import { imbCli } from "../page/Auth";
+import { handCashConnect } from "../page/Auth";
 import { BSVABI } from "../utils/BSVABI";
 import { twquery } from "../api/TwetchGraph";
 import {
   arrToScript,
   digestMessage,
+  getABI,
   getPayees,
   publishRequest
 } from "../api/TwetchActions";
 
 export default function Composer(props) {
+  const window = props.window;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
   const replyTx = props.replyTx;
   const [placeholder, setPlaceholder] = useState(
     "What do you *really* wanna learn?"
@@ -55,8 +65,12 @@ export default function Composer(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    twetchPost(content, replyTx);
-    setContent("");
+    if (localStorage.isOneClick) {
+      setOpen(true);
+    } else {
+      twetchPost(content, replyTx);
+      setContent("");
+    }
   };
 
   const getColor = () => {
@@ -71,6 +85,237 @@ export default function Composer(props) {
       }
     }
   };
+  const handleDrawerToggle = (e) => {
+    e.stopPropagation();
+    setOpen(!open);
+  };
+
+  const pay = (
+    <main>
+      <div
+        style={{
+          height: "100%",
+          width: "100vw",
+          background: "rgba(0, 0, 0, 0.5)",
+          display: "flex",
+          flexDirection: "column",
+          position: "fixed",
+          bottom: 0
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            position: "fixed",
+            bottom: 0,
+            width: "100%"
+          }}
+        >
+          <div style={{ flexGrow: 1 }}></div>
+          <div
+            style={{
+              width: "600px",
+              maxWidth: "calc(100% - 24px)",
+              background: "white",
+              borderRadius: "6px 6px 0 0"
+            }}
+          >
+            <div style={{ padding: "16px", display: "flex" }}>
+              <div
+                style={{
+                  color: "#2F2F2F",
+                  margin: 0,
+                  fontSize: "22px",
+                  fontWeight: "bold",
+                  textDecoration: "none"
+                }}
+              >
+                ZeroSchool
+                <span style={{ color: "#085AF6", fontSize: "16px" }}>Pay</span>
+              </div>
+              <div style={{ flexGrow: 1 }} />
+              <p
+                style={{
+                  fontSize: "18px",
+                  lineHeight: "21px",
+                  color: "#bdbdbd",
+                  margin: 0,
+                  fontWeight: "normal",
+                  cursor: "pointer"
+                }}
+                onClick={handleDrawerToggle}
+              >
+                Close
+              </p>
+            </div>
+            <div
+              id="detail"
+              style={{
+                padding: "16px",
+                borderTop: "2px solid #f2f2f2"
+              }}
+            >
+              <div
+                style={{
+                  margin: "0 0 26px 0",
+                  borderRadius: "6px"
+                }}
+              >
+                <div
+                  style={{
+                    display: "block",
+                    padding: "16px",
+                    background: "#F6F5FB",
+                    borderRadius: "6px",
+                    textDecoration: "none"
+                  }}
+                >
+                  <Link
+                    style={{
+                      display: "inline-block",
+                      position: "relative",
+                      marginRight: "12px",
+                      verticalAlign: "top"
+                    }}
+                    to={`/u/${localStorage.id}`}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Avatar src={localStorage.icon} />
+                  </Link>
+                  <div
+                    style={{
+                      width: "calc(100% - 58px)",
+
+                      display: "inline-block",
+                      verticalAlign: "top"
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "calc(100% - 58px)",
+                        display: "inline-block",
+                        verticalAlign: "top"
+                      }}
+                    >
+                      <Link
+                        to={`/u/${localStorage.id}`}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <div
+                          style={{
+                            color: "#000000",
+                            cursor: "pointer",
+                            display: "inline-block",
+                            overflow: "hidden",
+                            fontSize: "16px",
+                            maxWidth: "calc(100% - 64px)",
+                            fontWeight: "bold",
+                            lineHeight: "24px",
+                            whiteSpace: "nowrap",
+                            textOverflow: "ellipsis",
+                            verticalAlign: "top",
+                            textDecoration: "none"
+                          }}
+                        >
+                          {localStorage.name}
+                        </div>
+                      </Link>
+                      <Typography
+                        variant="body1"
+                        style={{
+                          color: "#828282",
+                          display: "inline-block",
+                          verticalAlign: "top"
+                        }}
+                      >{`@${localStorage.id}`}</Typography>
+                    </div>
+                    <div style={{ position: "relative" }}>
+                      <Typography
+                        variant="body1"
+                        style={{
+                          fontSize: "1rem",
+                          fontFamily:
+                            '"Roboto", "Helvetica", "Arial", sans-serif',
+                          fontWeight: 400,
+                          lineHeight: 1.5,
+                          letterSpacing: "0.00938em",
+                          wordWrap: "break-word"
+                        }}
+                      >
+                        {content}
+                      </Typography>
+                    </div>
+                    <div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              id="button"
+              style={{
+                padding: "16px"
+              }}
+            >
+              {localStorage.wallet === "handcash" && (
+                <div>
+                  <Typography
+                    style={{
+                      color: "#1A1A1C",
+                      margin: "0 auto",
+                      fontSize: "36px",
+                      textAlign: "center",
+                      fontWeight: 600,
+                      lineHeight: "44px"
+                    }}
+                    variant="body1"
+                  >
+                    $0.02
+                  </Typography>
+                  <Typography
+                    style={{
+                      color: "#A5A4A9",
+                      margin: "0 auto",
+                      fontSize: "16px",
+                      marginTop: "2px",
+                      textAlign: "center",
+                      lineHeight: "20px",
+                      marginBottom: "18px"
+                    }}
+                    variant="body1"
+                  >
+                    0.00013378 BSV
+                  </Typography>
+                  <Button
+                    style={{
+                      width: "257px",
+                      margin: "0 auto",
+                      display: "block",
+                      padding: "14px",
+                      fontSize: "16px",
+                      fontWeight: 600,
+                      lineWeight: "24px"
+                    }}
+                    color="primary"
+                    variant="contained"
+                  >
+                    Twetch It!
+                  </Button>
+                </div>
+              )}
+              {localStorage.wallet === "moneybutton" && (
+                <Button variant="contained">Twetch It!</Button>
+              )}
+              {localStorage.wallet === "relayx" && (
+                <Button variant="contained">Twetch It!</Button>
+              )}
+            </div>
+            <div style={{ height: "10vh" }}></div>
+          </div>
+          <div style={{ flexGrow: 1 }}></div>
+        </div>
+      </div>
+    </main>
+  );
 
   return (
     <div>
@@ -149,66 +394,179 @@ export default function Composer(props) {
           </Grid>
         </Grid>
       </form>
+      <Drawer
+        style={{
+          position: "fixed",
+          inset: "0px"
+        }}
+        anchor="bottom"
+        container={container}
+        ModalProps={{
+          keepMounted: true // Better open performance on mobile.
+        }}
+        onClose={handleDrawerToggle}
+        open={open}
+        variant="temporary"
+      >
+        {pay}
+      </Drawer>
     </div>
   );
 }
 
 const twetchPost = async (text, replyTx) => {
+  const action = "twetch/post@0.0.1";
+  let abi;
   if (!localStorage.tokenTwetchAuth) {
     alert("Please login!");
     return;
   }
+  //Construct Twetch ABI
+  if (localStorage.abi) {
+    abi = new BSVABI(JSON.parse(localStorage.getItem("abi")), { action });
+  } else {
+    abi = await getABI();
+    localStorage.setItem("abi", JSON.stringify(abi));
+  }
+
   let content = text;
   let hash = window.location.hash;
   if (!hash) {
     hash = "$zeroschool";
   }
-  content += ` ${hash}`;
-  //console.log(boost);
-  // Loading dlg
-  let action = "twetch/post@0.0.1";
-  let obj;
-  if (action === "twetch/post@0.0.1") {
-    obj = {
-      bContent: content,
-      mapReply: replyTx
-    };
-  } else {
-    obj = { postTransaction: content };
-  }
-  const abi = new BSVABI(JSON.parse(localStorage.getItem("abi")), { action });
+  //content += ` ${hash}`;
+
+  let obj = {
+    bContent: content,
+    mapReply: replyTx
+  };
+
   abi.fromObject(obj);
+
   let payees = await getPayees({ args: abi.toArray(), action });
   await abi.replace({ "#{invoice}": () => payees.invoice });
+
   let arg = abi.action.args.find((e) => e.type === "Signature");
   const ab = abi
     .toArray()
     .slice(arg.messageStartIndex || 0, arg.messageEndIndex + 1);
   const contentHash = await digestMessage(ab);
-  let outputScript = window.bsv.Script.buildSafeDataOut(abi.toArray()).toASM();
-  let outputs = { currency: "BSV", amount: 0, script: outputScript };
-  let relayOutputs = {
-    currency: "BSV",
-    amount: 0,
-    signatures: ["TWETCH-AIP"],
-    script: arrToScript(abi.args.slice(0, abi.args.length - 5))
-  };
-  outputs = [outputs].concat(payees.payees);
-  //console.log("mb", mbOutputs);
-  relayOutputs = [relayOutputs].concat(payees.payees);
-  //console.log("relay", relayOutputs);
-  let cryptoOperations = [
-    { name: "myAddress", method: "address", key: "identity" },
-    {
-      name: "mySignature",
-      method: "sign",
-      data: contentHash,
-      dataEncoding: "utf8",
-      key: "identity",
-      algorithm: "bitcoin-signed-message"
+
+  if (localStorage.wallet === "handcash") {
+    const account = handCashConnect.getAccountFromAuthToken(localStorage.token);
+
+    const { publicKey, signature } = await account.profile.signData({
+      value: contentHash,
+      format: "utf-8"
+    });
+    console.log(publicKey);
+    let myAddress = await window.bsv.PublicKey.fromHex(publicKey)
+      .toAddress()
+      .toString();
+    console.log(myAddress);
+    await abi.replace({ "#{myAddress}": () => myAddress });
+    await abi.replace({ "#{mySignature}": () => signature });
+
+    let outputScript = abi.args.toString("hex");
+    outputScript = Buffer.from(outputScript).toString("hex");
+    const paymentParameters = {
+      appAction: "ZeroSchool post",
+      payments: payees.payees.map((p) => {
+        return {
+          destination: p.to,
+          currencyCode: p.currency,
+          sendAmount: p.amount
+        };
+      }),
+      attachment: { format: "hex", value: outputScript }
+    };
+    return;
+    //console.log(paymentParameters);
+    let payment = await account.wallet
+      .pay(paymentParameters)
+      .catch((err) => console.log(err));
+    if (payment) {
+      console.log(payment);
+      console.log(payment.rawTransactionHex);
+      await publishRequest({
+        signed_raw_tx: payment.rawTransactionHex,
+        action: action,
+        broadcast: true,
+        invoice: payees.invoice,
+        payParams: {
+          tweetFromTwetch: false,
+          hideTweetFromTwetchLink: false
+        }
+      });
     }
-  ];
-  window.twetchPay
+  } else if (localStorage.wallet === "moneybutton") {
+    let outputScript = window.bsv.Script.buildSafeDataOut(
+      abi.toArray()
+    ).toASM();
+    let outputs = [{ currency: "BSV", amount: 0, script: outputScript }];
+    outputs = outputs.concat(payees.payees);
+    console.log(outputs);
+    let cryptoOperations = [
+      { name: "myAddress", method: "address", key: "identity" },
+      {
+        name: "mySignature",
+        method: "sign",
+        data: contentHash,
+        dataEncoding: "utf8",
+        key: "identity",
+        algorithm: "bitcoin-signed-message"
+      }
+    ];
+    let getPermissionForCurrentUser = () => {
+      return localStorage.token;
+    };
+    const imb = new window.moneyButton.IMB({
+      clientIdentifier: imbCli,
+      permission: getPermissionForCurrentUser(),
+      onNewPermissionGranted: (token) => localStorage.setItem("token", token)
+    });
+    imb.swipe({
+      outputs,
+      cryptoOperations,
+      onPayment: async (payment) => {
+        await publishRequest({
+          signed_raw_tx: payment.rawtx,
+          action: action,
+          broadcast: true,
+          invoice: payees.invoice,
+          payParams: {
+            tweetFromTwetch: false,
+            hideTweetFromTwetchLink: false
+          }
+        });
+      },
+      onError: (err) => console.log(err)
+    });
+  } else if (localStorage.wallet === "relayx") {
+    let outputs = {
+      currency: "BSV",
+      amount: 0,
+      signatures: ["TWETCH-AIP"],
+      script: arrToScript(abi.args.slice(0, abi.args.length - 5))
+    };
+    outputs = outputs.concat(payees.payees);
+    let res = await window.relayone.send({ outputs });
+    if (res.txid) {
+      await publishRequest({
+        signed_raw_tx: res.rawTx,
+        action: action,
+        broadcast: true,
+        invoice: payees.invoice,
+        payParams: {
+          tweetFromTwetch: false,
+          hideTweetFromTwetchLink: false
+        }
+      });
+    } else {
+      console.log("Failed to broadcast");
+    }
+  }
+  /* window.twetchPay
     .pay({
       //wallets: ["moneybutton", "relayx"],
       outputs: outputs,
@@ -253,7 +611,7 @@ const twetchPost = async (text, replyTx) => {
     })
     .then((res) => {
       console.log(res);
-    });
+    }); */
 
   //await build(content, "twetch/post@0.0.1", replyTx);
   //let res = await send("twetch/post@0.0.1");

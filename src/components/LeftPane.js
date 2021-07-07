@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import {
   Avatar,
   Button,
-  Grid,
   List,
   ListItem,
   ListItemIcon,
@@ -13,12 +12,15 @@ import {
 import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import EmojiObjectsOutlinedIcon from "@material-ui/icons/EmojiObjectsOutlined";
 import StarsOutlinedIcon from "@material-ui/icons/StarsOutlined";
 import AddCircleOutlineRoundedIcon from "@material-ui/icons/AddCircleOutlineRounded";
+import SettingsIcon from "@material-ui/icons/Settings";
 
 import Notifications from "./Notifications";
 import Messages from "./Messages";
+import { LinkOffSharp } from "@material-ui/icons";
 
 export default function LeftPane(props) {
   const selected = props.currentTab;
@@ -27,7 +29,7 @@ export default function LeftPane(props) {
     if (tab === selected) {
       return "primary";
     } else {
-      return "initial";
+      return;
     }
   };
 
@@ -137,13 +139,7 @@ export default function LeftPane(props) {
           >
             <div>
               <List style={{ marginLeft: "-16px" }}>
-                <ListItem
-                  button
-                  component="a"
-                  href="https://twetch.app/notifications"
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <ListItem button component={Link} to="/notifications">
                   <ListItemIcon>
                     <Notifications color={isSelected("Notifications")} />
                   </ListItemIcon>
@@ -219,6 +215,26 @@ export default function LeftPane(props) {
                   <ListItemText>
                     <Typography variant="body1" color={isSelected("Jobs")}>
                       Jobs
+                    </Typography>
+                  </ListItemText>
+                </ListItem>
+                <ListItem button component={Link} to="/features">
+                  <ListItemIcon>
+                    <LockOutlinedIcon color={isSelected("Features")} />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Typography variant="body1" color={isSelected("Features")}>
+                      Features
+                    </Typography>
+                  </ListItemText>
+                </ListItem>
+                <ListItem button component={Link} to="/settings">
+                  <ListItemIcon>
+                    <SettingsIcon color={isSelected("Settings")} />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Typography variant="body1" color={isSelected("Settings")}>
+                      Settings
                     </Typography>
                   </ListItemText>
                 </ListItem>

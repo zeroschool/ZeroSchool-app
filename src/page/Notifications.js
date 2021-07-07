@@ -12,34 +12,19 @@ import { use100vh } from "react-div-100vh";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import { getBoosts } from "../api/boost";
-import { FetchPosts } from "../api/TwetchGraph";
+import { FetchNotifications } from "../api/TwetchGraph";
 import Composer from "../components/Composer";
 import AppBar from "../components/AppBar";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
-import Post from "../components/Post";
-import StickyButton from "../components/StickyButton";
+import NotifDetail from "../components/NotifDetail";
 
-const indexToOrder = {
-  0: "CREATED_AT_DESC",
-  10: "CREATED_AT_ASC",
-  20: "RANKING_DESC"
-};
-
-const OrderToIndex = {
-  CREATED_AT_DESC: 0,
-  CREATED_AT_ASC: 10,
-  RANKING_DESC: 20
-};
-
-export default function Home(props) {
+export default function Notifications(props) {
   const filter = "";
   //console.log(filter);
-  const [orderBy, setOrderBy] = useState(indexToOrder[0]);
   //const [filter, setFilter] = useState(props.filter);
-  const [postList, setPostList] = useState([]);
+  const [notificationList, setNotificationList] = useState([]);
   const [offset, setOffset] = useState(0);
-  const [boosts, setBoosts] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -52,40 +37,23 @@ export default function Home(props) {
     fetchMore();
     setLoading(false);
     //getBoosts().then((res) => setBoosts(res));
-  }, [orderBy, filter]);
+  }, []);
 
   const fetchMore = () => {
-    FetchPosts(filter, orderBy, offset).then((res) => {
+    FetchNotifications(offset).then((res) => {
       //console.log(res);
-      setTotalCount(res.allPosts.totalCount);
+      setTotalCount(res.me.notificationsByUserId.totalCount);
       //console.log("total:", totalCount);
-      let data = res.allPosts.edges;
-      setPostList(postList.concat(data));
+      let data = res.me.notificationsByUserId.nodes;
+      setNotificationList(notificationList.concat(data));
       //console.log("postList:", postList.length);
       setOffset(offset + 30);
-      if (totalCount !== 0 && postList.length >= totalCount) {
+      if (totalCount !== 0 && notificationList.length >= totalCount) {
         //console.log("here");
         setHasMore(false);
       }
     });
     //console.log("hasMore:", hasMore);
-  };
-
-  const handleChangeOrder = (event) => {
-    setPostList([]);
-    setTotalCount(0);
-    setHasMore(true);
-    setOrderBy(indexToOrder[event.target.value]);
-    setOffset(0);
-  };
-
-  const getDiff = (tx) => {
-    let diff = 0;
-    let found = boosts.find((x) => x.tx === tx);
-    if (found) {
-      diff = found.diff;
-    }
-    return diff;
   };
 
   const scrollTop = (e) => {
@@ -100,7 +68,7 @@ export default function Home(props) {
       }}
     >
       <Hidden smDown>
-        <LeftPane currentTab="Home" />
+        <LeftPane currentTab="Notifications" />
       </Hidden>
       <div
         style={{
@@ -119,7 +87,7 @@ export default function Home(props) {
         >
           <div style={{ cursor: "pointer" }} onClick={scrollTop}>
             <Hidden smUp>
-              <AppBar currentTab="Home" />
+              <AppBar currentTab="Notifications" />
             </Hidden>
             <Hidden xsDown>
               <div
@@ -142,28 +110,10 @@ export default function Home(props) {
                   }}
                   onClick={() => history.push("/")}
                 >
-                  Home
+                  Notifications
                 </Button>
               </div>
             </Hidden>
-            <FormControl
-              style={{
-                width: "100%",
-                borderBottom: "1px solid #F2F2F2"
-              }}
-            >
-              <Select
-                variant="standard"
-                style={{ paddingLeft: "16px" }}
-                disableUnderline
-                value={OrderToIndex[orderBy]}
-                onChange={handleChangeOrder}
-              >
-                <MenuItem value={0}>Latest</MenuItem>
-                <MenuItem value={10}>Oldest</MenuItem>
-                <MenuItem value={20}>Economy</MenuItem>
-              </Select>
-            </FormControl>
           </div>
 
           {!loading ? (
@@ -171,22 +121,12 @@ export default function Home(props) {
               id="scrollable"
               style={{
                 position: "relative",
-                height: `calc(${containerHeight}px - 114px)`,
+                height: `calc(${containerHeight}px - 84px)`,
                 overflowY: "auto"
               }}
             >
-              <Hidden xsDown>
-                <Composer />
-                <div
-                  style={{
-                    width: "100%",
-                    height: "8px",
-                    backgroundColor: "#F2F2F2"
-                  }}
-                />
-              </Hidden>
               <InfiniteScroll
-                dataLength={postList.length}
+                dataLength={notificationList.length}
                 next={fetchMore}
                 hasMore={hasMore}
                 scrollableTarget="scrollable"
@@ -208,15 +148,8 @@ export default function Home(props) {
                   </p>
                 }
               >
-                {postList.map((post, index) => {
-                  return (
-                    <Post
-                      {...post}
-                      boostDiff={getDiff(post.node.transaction)}
-                      key={index}
-                      tx={post.node.transaction}
-                    />
-                  );
+                {notificationList.map((notif, index) => {
+                  return <NotifDetail {...notif} key={index} id={notif.id} />;
                 })}
               </InfiniteScroll>
             </div>
@@ -237,18 +170,6 @@ export default function Home(props) {
       <Hidden mdDown>
         <RightPane />
       </Hidden>
-      <div
-        style={{
-          width: "100%",
-          bottom: 0,
-          zIndex: 1002,
-          position: "fixed"
-        }}
-      >
-        <Hidden smUp>
-          <StickyButton />
-        </Hidden>
-      </div>
     </div>
   );
 }

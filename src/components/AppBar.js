@@ -15,10 +15,12 @@ import {
 import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import EmojiObjectsOutlinedIcon from "@material-ui/icons/EmojiObjectsOutlined";
 import StarsOutlinedIcon from "@material-ui/icons/StarsOutlined";
 import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
 import SearchIcon from "@material-ui/icons/Search";
+import SettingsIcon from "@material-ui/icons/Settings";
 
 import Messages from "./Messages";
 import Notifications from "./Notifications";
@@ -218,6 +220,26 @@ export default function AppBar(props) {
                     </Typography>
                   </ListItemText>
                 </ListItem>
+                <ListItem button component={Link} to="/features">
+                  <ListItemIcon>
+                    <LockOutlinedIcon color={isSelected("Features")} />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Typography variant="body1" color={isSelected("Features")}>
+                      Features
+                    </Typography>
+                  </ListItemText>
+                </ListItem>
+                <ListItem button component={Link} to="/settings">
+                  <ListItemIcon>
+                    <SettingsIcon color={isSelected("Settings")} />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Typography variant="body1" color={isSelected("Settings")}>
+                      Settings
+                    </Typography>
+                  </ListItemText>
+                </ListItem>
               </List>
             </div>
           </div>
@@ -246,13 +268,17 @@ export default function AppBar(props) {
             {localStorage.getItem("tokenTwetchAuth") ? (
               <Avatar
                 src={localStorage.getItem("icon")}
-                alt={`Avatar de ${localStorage.getItem("name")}`}
+                alt={`${localStorage.getItem("name")}`}
               />
             ) : (
               <MenuOutlinedIcon />
             )}
           </IconButton>
-          <IconButton component={Link} to="/search/?searchTerm=" d>
+          <IconButton
+            style={{ height: "36px", width: "36px" }}
+            component={Link}
+            to="/search/?searchTerm="
+          >
             <SearchIcon color="primary" />
           </IconButton>
         </div>
@@ -278,18 +304,19 @@ export default function AppBar(props) {
           ) : (
             <div>
               <IconButton
-                href="https://twetch.app/notifications"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Notifications color="primary" />
-              </IconButton>
-              <IconButton
+                style={{ height: "36px", width: "36px" }}
                 href="https://twetch.app/chat/home"
                 target="_blank"
                 rel="noreferrer"
               >
                 <Messages color="primary" />
+              </IconButton>
+              <IconButton
+                style={{ height: "36px", width: "36px" }}
+                component={Link}
+                to="/notifications"
+              >
+                <Notifications color="primary" />
               </IconButton>
             </div>
           )}
