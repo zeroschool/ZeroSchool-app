@@ -452,22 +452,18 @@ const twetchPost = async (text, replyTx) => {
     .slice(arg.messageStartIndex || 0, arg.messageEndIndex + 1);
   const contentHash = await digestMessage(ab);
 
-  return;
-
   if (localStorage.wallet === "handcash") {
     const account = handCashConnect.getAccountFromAuthToken(localStorage.token);
-    const currentProfile = await account.profile.getCurrentProfile();
-    let res = await fetch(
-      `https://api.polynym.io/getAddress/${currentProfile.publicProfile.paymail}`
-    );
-    let jres = await res.json();
-    const myAddress = jres.address;
 
-    const { signature } = await account.profile.signData({
+    const { publicKey, signature } = await account.profile.signData({
       value: contentHash,
       format: "utf-8"
     });
-    console.log(signature);
+    console.log(publicKey);
+    let myAddress = await window.bsv.PublicKey.fromHex(publicKey)
+      .toAddress()
+      .toString();
+    console.log(myAddress);
     await abi.replace({ "#{myAddress}": () => myAddress });
     await abi.replace({ "#{mySignature}": () => signature });
 
@@ -484,6 +480,7 @@ const twetchPost = async (text, replyTx) => {
       }),
       attachment: { format: "hex", value: outputScript }
     };
+    return;
     //console.log(paymentParameters);
     let payment = await account.wallet
       .pay(paymentParameters)
