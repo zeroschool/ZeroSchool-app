@@ -3,9 +3,10 @@ import { Switch, Route } from "react-router-dom";
 
 import { getABI } from "./api/TwetchActions";
 
-import HandCashCallBack from "./page/HandCashCallBack";
-import TwetchCallback from "./page/TwetchCallBack";
-import Auth from "./page/Auth";
+import HandCashCallBack from "./page/auth/HandCashCallBack";
+import TwetchCallback from "./page/auth/TwetchCallBack";
+import Auth from "./page/auth/Auth";
+import Signup from "./page/auth/Signup";
 import Notifications from "./page/Notifications";
 import Compose from "./page/Compose";
 import Home from "./page/Home";
@@ -17,6 +18,9 @@ import Projects from "./page/Projects";
 import Profile from "./page/Profile";
 import Search from "./page/Search";
 import Detail from "./page/Detail";
+import Wallet from "./page/wallet/Wallet";
+import Send from "./page/wallet/Send";
+import Receive from "./page/wallet/Receive";
 import Welcome from "./page/Welcome";
 import Settings from "./page/Settings";
 import "./styles.css";
@@ -39,6 +43,7 @@ export default function App() {
           path="/auth/callback/handcash"
           render={() => <HandCashCallBack />}
         />
+        <Route exact path="/signup" component={Signup} />
         <Route exact path="/welcome" component={Welcome} />
         <Route exact path="/notifications" component={Notifications} />
         <Route exact path="/" component={Home} />
@@ -48,6 +53,9 @@ export default function App() {
         <Route exact path="/features" component={Features} />
         <Route exact path="/jobs" component={Jobs} />
         <Route exact path="/settings" component={Settings} />
+        <Route exact path="/wallet" component={Wallet} />
+        <Route exact path="/wallet/send" component={Send} />
+        <Route exact path="/wallet/receive" component={Receive} />
         <Route
           exact
           path="/compose/:id"
