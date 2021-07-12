@@ -8,9 +8,9 @@ import {
   Typography
 } from "@material-ui/core";
 
-import MBLogo from "../../../public/moneybutton.png";
-import RelayLogo from "../../../public/relay.png";
-import HandCashLogo from "../../../public/handcash.png";
+import MBLogo from "../../resources/static/moneybutton.png";
+import RelayLogo from "../../resources/static/relay.png";
+import HandCashLogo from "../../resources/static/handcash.png";
 
 import { twquery } from "../../api/TwetchGraph";
 

@@ -12,6 +12,7 @@ import {
 import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
+import AccountBalanceWalletOutlinedIcon from "@material-ui/icons/AccountBalanceWalletOutlined";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import EmojiObjectsOutlinedIcon from "@material-ui/icons/EmojiObjectsOutlined";
 import StarsOutlinedIcon from "@material-ui/icons/StarsOutlined";
@@ -215,6 +216,18 @@ export default function LeftPane(props) {
                   <ListItemText>
                     <Typography variant="body1" color={isSelected("Jobs")}>
                       Jobs
+                    </Typography>
+                  </ListItemText>
+                </ListItem>
+                <ListItem button component={Link} to="/wallet">
+                  <ListItemIcon>
+                    <AccountBalanceWalletOutlinedIcon
+                      color={isSelected("Wallet")}
+                    />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Typography variant="body1" color={isSelected("Wallet")}>
+                      Wallet
                     </Typography>
                   </ListItemText>
                 </ListItem>

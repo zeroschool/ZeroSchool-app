@@ -13,8 +13,8 @@ import {
   Typography
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { imbCli } from "../page/Auth";
-import { handCashConnect } from "../page/Auth";
+import { imbCli } from "../page/auth/Auth";
+import { handCashConnect } from "../page/auth/Auth";
 import { BSVABI } from "../utils/BSVABI";
 import { twquery } from "../api/TwetchGraph";
 import {

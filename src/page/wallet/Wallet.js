@@ -17,7 +17,7 @@ import LeftPane from "../../components/LeftPane";
 import RightPane from "../../components/RightPane";
 
 import QRCode from "../../resources/QRCode";
-import TwetchLogo from "../../../public/twetch-wallet.svg";
+import TwetchLogo from "../../resources/static/twetch-wallet.svg";
 
 export default function Wallet(props) {
   const history = useHistory();
