@@ -122,6 +122,13 @@ export default function LeftPane(props) {
             ) : (
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <Button
+                  style={{
+                    textTransform: "none",
+
+                    fontSize: "16px",
+                    fontWeight: 600,
+                    lineWeight: "24px"
+                  }}
                   color="primary"
                   variant="contained"
                   component={Link}
@@ -259,10 +266,12 @@ export default function LeftPane(props) {
               component={Link}
               to="/compose"
               style={{
+                textTransform: "none",
                 height: "35px",
                 overflow: "hidden",
                 fontSize: "18px",
                 fontWeight: 600,
+                lineWeight: "24px",
                 paddingLeft: "4px",
                 paddingRight: "14px"
               }}

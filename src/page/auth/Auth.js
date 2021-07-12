@@ -478,6 +478,7 @@ export default function Auth(props) {
                     <Button
                       color="primary"
                       variant="contained"
+                      style={{ textTransform: "none" }}
                       fullWidth
                       disabled={false}
                       onClick={handleSubmit}
@@ -511,6 +512,7 @@ export default function Auth(props) {
                     <Button
                       color="primary"
                       variant="contained"
+                      style={{ textTransform: "none" }}
                       fullWidth
                       disabled={false}
                       onClick={handleSubmit}
@@ -578,7 +580,8 @@ export default function Auth(props) {
                     fontSize: "16px",
                     fontWeight: 600,
                     lineHeight: "24px",
-                    marginBottom: "10px"
+                    marginBottom: "10px",
+                    textTransform: "none"
                   }}
                 >
                   Sign In With Recovery Phrase
@@ -598,7 +601,8 @@ export default function Auth(props) {
                     fontSize: "16px",
                     fontWeight: 600,
                     lineHeight: "24px",
-                    marginBottom: "10px"
+                    marginBottom: "10px",
+                    textTransform: "none"
                   }}
                 >
                   Sign In With Email
@@ -618,7 +622,8 @@ export default function Auth(props) {
                   fontSize: "16px",
                   fontWeight: 600,
                   lineHeight: "24px",
-                  marginBottom: "10px"
+                  marginBottom: "10px",
+                  textTransform: "none"
                 }}
               >
                 Sign In With Wallet Provider

@@ -41,7 +41,12 @@ export default function Notifications(props) {
 
   const fetchMore = () => {
     FetchNotifications(offset).then((res) => {
-      //console.log(res);
+      console.log(res);
+      if (res.me === null) {
+        alert("Please, Log In ");
+        history.push("/auth");
+        return;
+      }
       setTotalCount(res.me.notificationsByUserId.totalCount);
       //console.log("total:", totalCount);
       let data = res.me.notificationsByUserId.nodes;
@@ -106,7 +111,8 @@ export default function Notifications(props) {
                     margin: 0,
                     fontSize: "22px",
                     fontWeight: "bold",
-                    textDecoration: "none"
+                    textDecoration: "none",
+                    textTransform: "none"
                   }}
                   onClick={() => history.push("/")}
                 >

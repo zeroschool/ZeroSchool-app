@@ -153,6 +153,7 @@ export default function AppBar(props) {
             ) : (
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <Button
+                  style={{ textTransform: "none" }}
                   color="primary"
                   variant="contained"
                   component={Link}
@@ -312,7 +313,13 @@ export default function AppBar(props) {
         <div style={{ float: "right" }}>
           {!localStorage.tokenTwetchAuth ? (
             <Link style={{ textDecoration: "none" }} to="/auth">
-              <Button color="primary">Log In</Button>
+              <Button
+                variant="outlined"
+                style={{ textTransform: "none" }}
+                color="primary"
+              >
+                Log In
+              </Button>
             </Link>
           ) : (
             <div>

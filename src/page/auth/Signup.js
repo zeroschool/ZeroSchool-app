@@ -271,6 +271,7 @@ export default function Signup() {
                 style={{ marginBottom: "18px" }}
               />
               <Button
+                style={{ textTransform: "none" }}
                 color="primary"
                 variant="contained"
                 fullWidth

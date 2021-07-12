@@ -185,7 +185,7 @@ export default function Search(props) {
                   href="https://twetch.app/search/advanced"
                   target="_blank"
                   rel="noreferrer"
-                  style={{ textDecoration: "none" }}
+                  style={{ textDecoration: "none", textTransform: "none" }}
                 >
                   Advanced
                 </Button>

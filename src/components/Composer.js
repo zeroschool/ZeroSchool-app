@@ -287,6 +287,7 @@ export default function Composer(props) {
                   </Typography>
                   <Button
                     style={{
+                      textTransform: "none",
                       width: "257px",
                       margin: "0 auto",
                       display: "block",
@@ -303,10 +304,40 @@ export default function Composer(props) {
                 </div>
               )}
               {localStorage.wallet === "moneybutton" && (
-                <Button variant="contained">Twetch It!</Button>
+                <Button
+                  style={{
+                    textTransform: "none",
+                    width: "257px",
+                    margin: "0 auto",
+                    display: "block",
+                    padding: "14px",
+                    fontSize: "16px",
+                    fontWeight: 600,
+                    lineWeight: "24px"
+                  }}
+                  color="primary"
+                  variant="contained"
+                >
+                  Twetch It!
+                </Button>
               )}
               {localStorage.wallet === "relayx" && (
-                <Button variant="contained">Twetch It!</Button>
+                <Button
+                  style={{
+                    textTransform: "none",
+                    width: "257px",
+                    margin: "0 auto",
+                    display: "block",
+                    padding: "14px",
+                    fontSize: "16px",
+                    fontWeight: 600,
+                    lineWeight: "24px"
+                  }}
+                  color="primary"
+                  variant="contained"
+                >
+                  Twetch It!
+                </Button>
               )}
             </div>
             <div style={{ height: "10vh" }}></div>
@@ -381,6 +412,12 @@ export default function Composer(props) {
               <div style={{ flexGrow: 1 }}></div>
               <div>
                 <Button
+                  style={{
+                    textTransform: "none",
+                    fontSize: "16px",
+                    fontWeight: 600,
+                    lineWeight: "24px"
+                  }}
                   variant="contained"
                   color="primary"
                   type="submit"
