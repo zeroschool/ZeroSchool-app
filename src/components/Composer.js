@@ -293,7 +293,8 @@ export default function Composer(props) {
                       padding: "14px",
                       fontSize: "16px",
                       fontWeight: 600,
-                      lineWeight: "24px"
+                      lineWeight: "24px",
+                      textTransform: "none"
                     }}
                     color="primary"
                     variant="contained"
@@ -303,10 +304,40 @@ export default function Composer(props) {
                 </div>
               )}
               {localStorage.wallet === "moneybutton" && (
-                <Button variant="contained">Twetch It!</Button>
+                <Button
+                  style={{
+                    width: "257px",
+                    margin: "0 auto",
+                    display: "block",
+                    padding: "14px",
+                    fontSize: "16px",
+                    fontWeight: 600,
+                    lineWeight: "24px",
+                    textTransform: "none"
+                  }}
+                  color="primary"
+                  variant="contained"
+                >
+                  Twetch It!
+                </Button>
               )}
               {localStorage.wallet === "relayx" && (
-                <Button variant="contained">Twetch It!</Button>
+                <Button
+                  style={{
+                    width: "257px",
+                    margin: "0 auto",
+                    display: "block",
+                    padding: "14px",
+                    fontSize: "16px",
+                    fontWeight: 600,
+                    lineWeight: "24px",
+                    textTransform: "none"
+                  }}
+                  color="primary"
+                  variant="contained"
+                >
+                  Twetch It!
+                </Button>
               )}
             </div>
             <div style={{ height: "10vh" }}></div>

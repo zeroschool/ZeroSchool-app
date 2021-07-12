@@ -136,7 +136,8 @@ export default function Projects(props) {
                     margin: 0,
                     fontSize: "22px",
                     fontWeight: "bold",
-                    textDecoration: "none"
+                    textDecoration: "none",
+                    textTransform: "none"
                   }}
                   onClick={() => history.push("/projects")}
                 >

@@ -138,7 +138,8 @@ export default function Jobs(props) {
                     margin: 0,
                     fontSize: "22px",
                     fontWeight: "bold",
-                    textDecoration: "none"
+                    textDecoration: "none",
+                    textTransform: "none"
                   }}
                   onClick={() => history.push("/")}
                 >

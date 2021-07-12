@@ -125,6 +125,7 @@ export default function LeftPane(props) {
                   variant="contained"
                   component={Link}
                   to="/auth"
+                  style={{ textTransform: "none" }}
                 >
                   Log In
                 </Button>
@@ -251,7 +252,8 @@ export default function LeftPane(props) {
                 fontSize: "18px",
                 fontWeight: 600,
                 paddingLeft: "4px",
-                paddingRight: "14px"
+                paddingRight: "14px",
+                textTransform: "none"
               }}
               variant="contained"
               color="primary"
