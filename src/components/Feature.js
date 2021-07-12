@@ -132,7 +132,12 @@ export default function Feature(props) {
         <Button
           variant="contained"
           color="primary"
-          style={{ height: "32px", marginTop: "10px" }}
+          style={{
+            height: "32px",
+            marginTop: "10px",
+            marginLeft: "16px",
+            textTransform: "none"
+          }}
         >
           Pay
         </Button>
