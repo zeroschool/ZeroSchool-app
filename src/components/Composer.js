@@ -416,7 +416,8 @@ export default function Composer(props) {
                     height: "32px",
                     marginLeft: "16px",
                     marginTop: "10px",
-                    textTransform: "none"
+                    textTransform: "none",
+                    transition: "color .01s"
                   }}
                   variant="contained"
                   color="primary"
