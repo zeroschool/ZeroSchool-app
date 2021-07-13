@@ -412,6 +412,12 @@ export default function Composer(props) {
               <div style={{ flexGrow: 1 }}></div>
               <div>
                 <Button
+                  style={{
+                    height: "32px",
+                    marginLeft: "16px",
+                    marginTop: "10px",
+                    textTransform: "none"
+                  }}
                   variant="contained"
                   color="primary"
                   type="submit"
