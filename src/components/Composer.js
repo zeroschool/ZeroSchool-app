@@ -413,10 +413,10 @@ export default function Composer(props) {
               <div>
                 <Button
                   style={{
-                    textTransform: "none",
-                    fontSize: "16px",
-                    fontWeight: 600,
-                    lineWeight: "24px"
+                    height: "32px",
+                    marginLeft: "16px",
+                    marginTop: "10px",
+                    textTransform: "none"
                   }}
                   variant="contained"
                   color="primary"
