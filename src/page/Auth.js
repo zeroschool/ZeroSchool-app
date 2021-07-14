@@ -152,7 +152,7 @@ export default function Auth() {
         >
           Ceci n'est pas une école.
         </p>
-        <div
+        {/* <div
           style={{
             width: "100%",
             margin: "20px auto 0 auto",
@@ -178,7 +178,7 @@ export default function Auth() {
           >
             Log in with Twetch
           </Button>
-        </div>
+        </div> */}
         <div
           style={{
             width: "100%",
@@ -214,7 +214,7 @@ export default function Auth() {
             maxWidth: "300px"
           }}
         >
-          <Button
+          {/* <Button
             style={{
               color: "white",
               width: "100%",
@@ -231,8 +231,8 @@ export default function Auth() {
             onClick={RelayXLogin}
           >
             Log in with RelayX
-          </Button>
-          <div
+          </Button> */}
+          {/* <div
             style={{
               width: "100%",
               margin: "20px auto 0 auto",
@@ -243,7 +243,7 @@ export default function Auth() {
             <div id="connectButton" onClick={HandCashLogin}>
               Connect with HandCash
             </div>
-          </div>
+          </div> */}
           <div
             style={{
               width: "100%",
